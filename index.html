@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.0, minimum-scale=1.0, user-scalable=yes">
+    <meta name="theme-color" content="#ffffff">
+    <meta name="description" content="VLAST 공식 온라인 스토어에서 PLAVE의 최신 앨범과 공식 굿즈를 만나보세요. 신상품과 투어, 시즌 한정 상품을 둘러보고, VLAST Shop의 새로운 컬렉션과 공식 소식, 다양한 상품 정보를 한곳에서 확인할 수 있습니다.">
+    <meta property="og:title" content="VLAST Shop">
+    <meta property="og:description" content="VLAST 공식 온라인 스토어">
+    <title>VLAST Shop | 공식 온라인 스토어</title>
+    <link rel="preload" href="assets/fonts/spoqa-han-sans-neo-regular.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="css/main.css">
+    <script type="module" src="js/main.js"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">본문 바로가기</a>
+    <a class="skip-link" href="#category">전체상품목록 바로가기</a>
+
+    <header class="site-header">
+      <div class="inner-box">
+        <div class="header__part header__part--utility">
+          <a class="header__language" href="#site-footer" aria-label="언어 선택, 현재 한국어">
+            한국어 <span aria-hidden="true">⌄</span>
+          </a>
+          <nav class="header__utility-links" aria-label="회원 메뉴">
+            <a href="#site-footer">회원가입</a>
+            <a href="#site-footer">로그인</a>
+            <a href="#site-footer">주문조회</a>
+            <a href="#new-arrivals">최근본상품</a>
+          </nav>
+        </div>
+
+        <div class="header__part header__part--main">
+          <a class="header__logo" href="#main" aria-label="VLAST Shop 홈">
+            <span>VLAST</span><span class="header__logo-shop">Shop</span>
+          </a>
+          <nav class="header__icons" aria-label="쇼핑 메뉴">
+            <a class="icon-link" href="#new-arrivals" aria-label="상품 검색">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <circle cx="10.8" cy="10.8" r="6.8"></circle>
+                <path d="m16 16 4.5 4.5"></path>
+              </svg>
+            </a>
+            <a class="icon-link" href="#site-footer" aria-label="마이페이지">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <circle cx="12" cy="7.5" r="4"></circle>
+                <path d="M4.5 20c.5-4 3.1-6 7.5-6s7 2 7.5 6z"></path>
+              </svg>
+            </a>
+            <a class="icon-link" href="#site-footer" aria-label="장바구니">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M5 8h14l1.2 12H3.8z"></path>
+                <path d="M9 9V6a3 3 0 0 1 6 0v3"></path>
+              </svg>
+            </a>
+          </nav>
+        </div>
+        <nav class="header__part header__part--navigation gnb" aria-label="주요 메뉴">
+          <ul class="gnb__list">
+            <li><a href="#new-arrivals">ALBUM</a></li>
+            <li><a href="#new-arrivals">MERCH</a></li>
+            <li><a href="#new-arrivals">TOUR</a></li>
+            <li><a href="#new-arrivals">SEASONAL</a></li>
+            <li><a href="#new-arrivals">ASTERUM 433-10</a></li>
+            <li><a href="#site-footer">NOTICE</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main">
+      <section class="section-visual" aria-label="메인 배너">
+        <div class="inner-box">
+          <div class="visual__part">
+            <div class="visual__carousel" data-js="carousel" role="region" aria-label="메인 배너 슬라이드" aria-roledescription="carousel">
+              <div class="visual__stage" aria-live="off">
+                <article class="visual__slide is-active" data-slide aria-roledescription="slide" aria-label="1 / 3">
+                  <span class="visual__eyebrow">PLAVE 5TH MINI ALBUM</span>
+                  <h1 class="visual__title">HYPERBURN</h1>
+                  <p class="visual__caption">Album Release 2026.10.13</p>
+                </article>
+                <article class="visual__slide visual__slide--midnight" data-slide aria-roledescription="slide" aria-label="2 / 3" aria-hidden="true">
+                  <span class="visual__eyebrow">OFFICIAL MERCHANDISE</span>
+                  <h2 class="visual__title">NEW ARRIVALS</h2>
+                  <p class="visual__caption">Discover the latest collection</p>
+                </article>
+                <article class="visual__slide visual__slide--soft" data-slide aria-roledescription="slide" aria-label="3 / 3" aria-hidden="true">
+                  <span class="visual__eyebrow">VLAST SHOP</span>
+                  <h2 class="visual__title">SPECIAL ITEMS</h2>
+                  <p class="visual__caption">Official goods for PLAVE fans</p>
+                </article>
+              </div>
+              <button class="visual__arrow visual__arrow--previous" type="button" data-carousel-previous aria-label="이전 배너">
+                <span aria-hidden="true">‹</span>
+              </button>
+              <button class="visual__arrow visual__arrow--next" type="button" data-carousel-next aria-label="다음 배너">
+                <span aria-hidden="true">›</span>
+              </button>
+              <div class="visual__controls">
+                <div class="visual__pagination" role="group" aria-label="배너 선택">
+                  <button class="visual__dot is-active" type="button" data-carousel-dot="0" aria-label="배너 1" aria-current="true"></button>
+                  <button class="visual__dot" type="button" data-carousel-dot="1" aria-label="배너 2"></button>
+                  <button class="visual__dot" type="button" data-carousel-dot="2" aria-label="배너 3"></button>
+                </div>
+                <button class="visual__toggle" type="button" data-carousel-toggle aria-label="자동 재생 정지">정지</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section-new" id="new-arrivals" aria-labelledby="new-title">
+        <div class="inner-box">
+          <div class="new__content">
+            <h2 class="section-new__title" id="new-title">NEW ARRIVALS</h2>
+            <ul class="new__part" id="category" aria-label="신상품">
+              <li class="card">
+                <a class="card__link" href="#site-footer">
+                  <span class="card__thumb" role="img" aria-label="상품 이미지 자리">PRODUCT IMAGE</span>
+                  <span class="card__body">
+                    <span class="card__name">상품명 영역</span>
+                    <span class="card__price">43,000원</span>
+                  </span>
+                </a>
+              </li>
+              <li class="card">
+                <a class="card__link" href="#site-footer">
+                  <span class="card__thumb" role="img" aria-label="상품 이미지 자리">PRODUCT IMAGE</span>
+                  <span class="card__body">
+                    <span class="card__name">상품명 영역</span>
+                    <span class="card__price">43,000원</span>
+                  </span>
+                </a>
+              </li>
+              <li class="card">
+                <a class="card__link" href="#site-footer">
+                  <span class="card__thumb" role="img" aria-label="상품 이미지 자리">PRODUCT IMAGE</span>
+                  <span class="card__body">
+                    <span class="card__name">상품명 영역</span>
+                    <span class="card__price">43,000원</span>
+                  </span>
+                </a>
+              </li>
+              <li class="card">
+                <a class="card__link" href="#site-footer">
+                  <span class="card__thumb" role="img" aria-label="상품 이미지 자리">PRODUCT IMAGE</span>
+                  <span class="card__body">
+                    <span class="card__name">상품명 영역</span>
+                    <span class="card__price">43,000원</span>
+                  </span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer" id="site-footer">
+      <div class="inner-box">
+        <div class="footer__part">
+          <p>VLAST Shop</p>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

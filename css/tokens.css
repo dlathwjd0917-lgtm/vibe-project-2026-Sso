@@ -1,0 +1,112 @@
+:root {
+  --inner-max: 120rem;
+  --inner-content-max: 80rem; /* MEASURE */
+  --inner-content-ratio: 66.6667%; /* MEASURE */
+  --inner-gutter: 1rem; /* PROVISIONAL */
+  --toparea-h: 2rem; /* PROVISIONAL */
+  --header-main-h: 5rem; /* PROVISIONAL */
+  --gnb-h: 3rem; /* MEASURE */
+  --gnb-gap: 2.5rem; /* MEASURE */
+  --header-icons-gap: 1rem; /* MEASURE */
+  --icon-size: 1.5rem;
+  --tap-target-size: 2.75rem;
+  --border-width: 1px;
+  --focus-width: 2px;
+  --focus-offset: 2px;
+  --focus-translate: -200%;
+  --center-offset: -50%;
+  --motion-zero: 0.01ms;
+  --logo-letter-spacing: -0.06em; /* MEASURE */
+  --logo-shop-letter-spacing: -0.03em; /* MEASURE */
+  --title-letter-spacing: -0.04em; /* MEASURE */
+  --icon-stroke-width: 1.4;
+  --banner-title-line-height: 1.1;
+  --header-logo-size: 2.75rem; /* MEASURE */
+  --header-logo-size-mobile: 2rem; /* PROVISIONAL */
+  --header-logo-shop-size: 1rem; /* MEASURE */
+
+  --banner-pc-ratio: 1920 / 600;
+  --banner-mo-ratio: 720 / 767;
+  --banner-background: #4b4ba2; /* MEASURE */
+  --banner-background-midnight: #15151b; /* PROVISIONAL */
+  --banner-background-soft: #dce5f2; /* PROVISIONAL */
+  --banner-text: #ffffff;
+  --banner-text-soft: #23232a; /* PROVISIONAL */
+  --banner-eyebrow-size: 1rem; /* MEASURE */
+  --banner-title-size: clamp(2rem, 4vw, 4rem); /* MEASURE */
+  --banner-caption-size: 0.75rem; /* MEASURE */
+  --banner-control-offset: 0.625rem;
+  --banner-arrow-size: 2rem;
+  --banner-arrow-line-height: 1;
+  --pager-dot-radius: 9999px;
+  --lh-tight: 1;
+  --banner-pager-size: 0.625rem;
+  --banner-pager-gap: 10px;
+  --banner-pager-bottom: 1.25rem;
+  --visually-hidden-size: 1px;
+  --visually-hidden-offset: -1px;
+  --slider-fade: 500ms;
+  --slider-pause: 4000ms;
+
+  --section-new-pt: 5rem; /* PROVISIONAL */
+  --section-new-mb: 7.5rem;
+  --section-title-size: 1.5rem; /* MEASURE */
+  --section-title-gap: 1rem; /* PROVISIONAL */
+  --content-gap: 1.5rem; /* PROVISIONAL */
+  --cols-card: 2;
+  --cols-card-pc: 4;
+  --card-ratio: 1 / 1; /* PROVISIONAL */
+  --card-image-background: #f2f2f2; /* MEASURE */
+  --card-image-text: #9a9a9a; /* MEASURE */
+  --card-placeholder-size: 0.75rem; /* MEASURE */
+  --card-name-color: #555555;
+  --card-price-color: #008bcc; /* RULE-EXCEPTION: 원본 가격색은 디자인 동일성을 위해 유지하며 본문 AA 대비 기준에 미달합니다. */
+  --card-text-size: 0.75rem;
+  --card-text-gap: 0.25rem;
+
+  --font-sans: "Spoqa Han Sans Neo", "Noto Sans KR", -apple-system, BlinkMacSystemFont, "Segoe UI", "Apple SD Gothic Neo", sans-serif;
+  --fw-regular: 400;
+  --fw-medium: 500;
+  --fw-bold: 700;
+  --fs-utility: 0.75rem; /* PROVISIONAL */
+  --fs-gnb: 0.75rem; /* MEASURE */
+  --fs-body: 1rem;
+  --lh-body: 1.5;
+
+  --color-bg: #ffffff;
+  --color-text: #111111; /* MEASURE */
+  --color-muted: #666666; /* MEASURE */
+  --color-border: #e5e5e5; /* MEASURE */
+  --color-icon: #000000;
+  --color-brand: #e71d60; /* MEASURE */
+  --color-focus: #008bcc; /* MEASURE */
+  --color-pager: rgb(0 0 0 / 0.2);
+  --color-pager-active: rgb(0 0 0 / 0.8);
+
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  --space-24: 6rem;
+
+  --duration-fast: 120ms;
+  --duration-base: 200ms;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@media (min-width: 721px) {
+  :root {
+    --inner-gutter: 2.5rem; /* PROVISIONAL */
+    --cols-card: var(--cols-card-pc);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --slider-fade: 0ms;
+  }
+}
