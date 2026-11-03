@@ -44,6 +44,12 @@
   font-weight: var(--fw-medium);
 }
 
+.card__thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
 .card__body {
   align-items: flex-start;
   flex-direction: column;

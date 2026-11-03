@@ -251,6 +251,147 @@
         font-size: 0.72rem;
         letter-spacing: -0.03em;
       }
+
+      /* 검색 화면 오버레이 */
+      .search-view {
+        position: fixed;
+        z-index: 600;
+        inset: 0;
+        pointer-events: none;
+        transition: visibility 0.25s ease;
+        visibility: hidden;
+      }
+
+      .search-view.is-open {
+        visibility: visible;
+      }
+
+      .search-view__shade {
+        position: absolute;
+        inset: 0;
+        background: rgb(0 0 0 / 25%);
+        opacity: 0;
+        transition: opacity 0.25s ease;
+      }
+
+      .search-view.is-open .search-view__shade {
+        opacity: 1;
+      }
+
+      .search-view__header {
+        position: fixed;
+        z-index: 1;
+        top: 0;
+        left: 0;
+        display: flex;
+        width: 100%;
+        height: 48.2vh;
+        min-height: 21rem;
+        max-height: 26rem;
+        flex-direction: column;
+        align-items: center;
+        background: #fff;
+        color: #333;
+        pointer-events: auto;
+      }
+
+      .search-view__title {
+        margin: 6rem 0 0;
+        font-size: 1.75rem;
+        font-weight: 700;
+        line-height: 1.2;
+      }
+
+      .search-view__close {
+        position: absolute;
+        top: 1.5rem;
+        right: 3rem;
+        display: grid;
+        width: 2.5rem;
+        height: 2.5rem;
+        place-items: center;
+        border: 0;
+        background: transparent;
+        color: #333;
+        cursor: pointer;
+      }
+
+      .search-view__close svg {
+        width: 1.75rem;
+        height: 1.75rem;
+        fill: none;
+        stroke: currentColor;
+        stroke-linecap: round;
+        stroke-width: 1.2;
+      }
+
+      .search-view__form {
+        display: flex;
+        width: min(46.5vw, 38.5rem);
+        height: 3rem;
+        align-items: center;
+        margin-top: 3.25rem;
+        border-bottom: 1px solid #444;
+      }
+
+      .search-view__input {
+        width: 100%;
+        height: 100%;
+        padding: 0 0.75rem;
+        border: 0;
+        outline: 0;
+        background: transparent;
+        color: #222;
+        font: inherit;
+        font-size: 1rem;
+      }
+
+      .search-view__submit {
+        display: grid;
+        width: 3rem;
+        height: 100%;
+        flex: 0 0 3rem;
+        place-items: center;
+        border: 0;
+        background: transparent;
+        color: #222;
+        cursor: pointer;
+      }
+
+      .search-view__submit svg {
+        width: 1.5rem;
+        height: 1.5rem;
+        fill: none;
+        stroke: currentColor;
+        stroke-linecap: round;
+        stroke-width: 1.6;
+      }
+
+      @media (max-width: 768px) {
+        .search-view__header {
+          height: 32.25svh;
+          min-height: 15rem;
+          max-height: 17rem;
+        }
+
+        .search-view__title {
+          margin-top: 3rem;
+          font-size: 1.75rem;
+        }
+
+        .search-view__close {
+          top: 0.25rem;
+          right: 0.25rem;
+          width: 2.5rem;
+          height: 2.5rem;
+        }
+
+        .search-view__form {
+          width: calc(100% - 2rem);
+          height: 3rem;
+          margin-top: 2.25rem;
+        }
+      }
     </style>
     <script type="module" src="js/main.js"></script>
   </head>
@@ -277,7 +418,7 @@
             <span>VLAST</span><span class="header__logo-shop">Shop</span>
           </a>
           <nav class="header__icons" aria-label="쇼핑 메뉴">
-            <a class="icon-link" href="#new-arrivals" aria-label="상품 검색">
+            <a class="icon-link" href="#search-view" aria-label="상품 검색" aria-controls="search-view" aria-expanded="false" data-search-open>
               <svg viewBox="0 0 24 24" aria-hidden="true">
                 <circle cx="10.8" cy="10.8" r="6.8"></circle>
                 <path d="m16 16 4.5 4.5"></path>
@@ -314,7 +455,7 @@
             <li class="gnb__category-item"><a href="#new-arrivals">ASTERUM 433-10</a></li>
             <li class="gnb__category-item"><a href="#site-footer">NOTICE</a></li>
           </ul>
-          <a class="header__mobile-search icon-link" href="#new-arrivals" aria-label="상품 검색">
+          <a class="header__mobile-search icon-link" href="#search-view" aria-label="상품 검색" aria-controls="search-view" aria-expanded="false" data-search-open>
             <svg viewBox="0 0 24 24" aria-hidden="true">
               <circle cx="10.8" cy="10.8" r="6.8"></circle>
               <path d="m16 16 4.5 4.5"></path>
@@ -370,6 +511,28 @@
         </section>
       </div>
     </aside>
+
+    <!-- 검색 화면: 상단 검색 패널은 고정하고 배경 페이지는 스크롤 가능하게 유지 -->
+    <section class="search-view" id="search-view" aria-label="검색" aria-hidden="true" inert data-search-view>
+      <div class="search-view__shade" aria-hidden="true"></div>
+      <header class="search-view__header">
+        <button class="search-view__close" type="button" aria-label="검색 닫기" data-search-close>
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="m6 6 12 12M18 6 6 18"></path>
+          </svg>
+        </button>
+        <h2 class="search-view__title">SEARCH</h2>
+        <form class="search-view__form" role="search" data-search-form>
+          <input class="search-view__input" type="search" aria-label="검색어 입력" autocomplete="off">
+          <button class="search-view__submit" type="submit" aria-label="검색">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <circle cx="10.8" cy="10.8" r="6.8"></circle>
+              <path d="m16 16 4.5 4.5"></path>
+            </svg>
+          </button>
+        </form>
+      </header>
+    </section>
 
     <main id="main">
       <section class="section-visual" aria-label="메인 배너">
@@ -460,7 +623,7 @@
                   </a>
                 </li>
                 <li>
-                  <a href="#new-arrivals" aria-label="검색">
+                  <a href="#search-view" aria-label="검색" aria-controls="search-view" aria-expanded="false" data-search-open>
                     <svg viewBox="0 0 24 24" aria-hidden="true">
                       <circle cx="10.8" cy="10.8" r="6.8"></circle>
                       <path d="m16 16 4.5 4.5"></path>
@@ -508,7 +671,7 @@
             <ul class="new__part" id="new-arrival-products" aria-label="신상품">
               <li class="card">
                 <a class="card__link" href="#site-footer">
-                  <span class="card__thumb" role="img" aria-label="상품 이미지 자리">PRODUCT IMAGE</span>
+                  <span class="card__thumb"><img src="imges/img-dt/vlastshop-dt-1.png" alt="2026 생일 키트 상품"></span>
                   <span class="card__body">
                     <span class="card__name">상품명 영역</span>
                     <span class="card__price">43,000원</span>
@@ -517,7 +680,7 @@
               </li>
               <li class="card">
                 <a class="card__link" href="#site-footer">
-                  <span class="card__thumb" role="img" aria-label="상품 이미지 자리">PRODUCT IMAGE</span>
+                  <span class="card__thumb"><img src="imges/img-dt/vlastshop-dt-3.jpg" alt="PLAVE 미니 앨범 공식 굿즈"></span>
                   <span class="card__body">
                     <span class="card__name">상품명 영역</span>
                     <span class="card__price">43,000원</span>
@@ -526,7 +689,7 @@
               </li>
               <li class="card">
                 <a class="card__link" href="#site-footer">
-                  <span class="card__thumb" role="img" aria-label="상품 이미지 자리">PRODUCT IMAGE</span>
+                  <span class="card__thumb"><img src="imges/img-dt/vlastshop-dt-9.png" alt="PLAVE 캐릭터 상품"></span>
                   <span class="card__body">
                     <span class="card__name">상품명 영역</span>
                     <span class="card__price">43,000원</span>
@@ -535,7 +698,7 @@
               </li>
               <li class="card">
                 <a class="card__link" href="#site-footer">
-                  <span class="card__thumb" role="img" aria-label="상품 이미지 자리">PRODUCT IMAGE</span>
+                  <span class="card__thumb"><img src="imges/img-dt/vlastshop-dt-1.png" alt="2026 생일 키트 상품"></span>
                   <span class="card__body">
                     <span class="card__name">상품명 영역</span>
                     <span class="card__price">43,000원</span>
@@ -572,6 +735,11 @@
       const drawerCloseButton = document.querySelector("[data-drawer-close]");
       const drawerMenu = document.querySelector("[data-drawer-menu]");
       let previousBodyOverflow = "";
+      const searchView = document.querySelector("[data-search-view]");
+      const searchCloseButton = document.querySelector("[data-search-close]");
+      const searchForm = document.querySelector("[data-search-form]");
+      const searchOpenButtons = [...document.querySelectorAll("[data-search-open]")];
+      let activeSearchButton;
 
       function createDrawerLink(label, href) {
         const link = document.createElement("a");
@@ -689,6 +857,38 @@
             event.preventDefault();
             first.focus();
           }
+        }
+      });
+
+      // 검색 화면 표시만 처리하고 실제 검색은 실행하지 않는다
+      function openSearch(event) {
+        event.preventDefault();
+
+        if (drawer.classList.contains("is-open")) {
+          closeDrawer(false);
+        }
+
+        activeSearchButton = event.currentTarget;
+        searchView.inert = false;
+        searchView.setAttribute("aria-hidden", "false");
+        searchView.classList.add("is-open");
+        searchOpenButtons.forEach((button) => button.setAttribute("aria-expanded", "true"));
+      }
+
+      function closeSearch() {
+        searchView.classList.remove("is-open");
+        searchView.setAttribute("aria-hidden", "true");
+        searchView.inert = true;
+        searchOpenButtons.forEach((button) => button.setAttribute("aria-expanded", "false"));
+        activeSearchButton?.focus();
+      }
+
+      searchOpenButtons.forEach((button) => button.addEventListener("click", openSearch));
+      searchCloseButton.addEventListener("click", closeSearch);
+      searchForm.addEventListener("submit", (event) => event.preventDefault());
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape" && searchView.classList.contains("is-open")) {
+          closeSearch();
         }
       });
     </script>
