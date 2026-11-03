@@ -10,6 +10,248 @@
     <title>VLAST Shop | 공식 온라인 스토어</title>
     <link rel="preload" href="assets/fonts/spoqa-han-sans-neo-regular.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="stylesheet" href="css/main.css">
+    <style>
+      /* 모바일 전체 메뉴 드로어 */
+      .mobile-drawer-overlay {
+        position: fixed;
+        z-index: 499;
+        inset: 0;
+        background: rgb(0 0 0 / 55%);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s ease, visibility 0.3s ease;
+        visibility: hidden;
+      }
+
+      .mobile-drawer {
+        position: fixed;
+        z-index: 500;
+        inset-block: 0;
+        left: 0;
+        display: flex;
+        width: 80vw;
+        height: 100vh;
+        height: 100dvh;
+        flex-direction: column;
+        overflow-y: auto;
+        overscroll-behavior: contain;
+        background: #fff;
+        box-shadow: 0 0 24px rgb(0 0 0 / 12%);
+        transform: translateX(-100%);
+        transition: transform 0.3s ease, visibility 0.3s ease;
+        visibility: hidden;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      .mobile-drawer.is-open {
+        transform: translateX(0);
+        visibility: visible;
+      }
+
+      .mobile-drawer-overlay.is-open {
+        opacity: 1;
+        pointer-events: auto;
+        visibility: visible;
+      }
+
+      .mobile-drawer__header {
+        position: relative;
+        flex: 0 0 auto;
+        padding: 2rem 1rem 1rem;
+        background: #f4f4f4;
+        text-align: center;
+      }
+
+      .mobile-drawer__logo {
+        display: inline-flex;
+        align-items: baseline;
+        color: #e0245e;
+        font-size: 1.75rem;
+        font-weight: 700;
+        letter-spacing: -0.06em;
+        line-height: 1.2;
+      }
+
+      .mobile-drawer__logo span + span {
+        margin-left: 0.25rem;
+        font-size: 0.8rem;
+        letter-spacing: -0.03em;
+      }
+
+      .mobile-drawer__close {
+        position: absolute;
+        top: 0.5rem;
+        right: 0.5rem;
+        display: grid;
+        width: 2.75rem;
+        height: 2.75rem;
+        place-items: center;
+        border: 0;
+        background: transparent;
+        color: #222;
+        cursor: pointer;
+      }
+
+      .mobile-drawer__close svg {
+        width: 1.5rem;
+        height: 1.5rem;
+        fill: none;
+        stroke: currentColor;
+        stroke-linecap: round;
+        stroke-width: 1.8;
+      }
+
+      .mobile-drawer__account {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 0.35rem 0;
+        margin-top: 1.15rem;
+        color: #444;
+        font-size: 0.75rem;
+        line-height: 1.4;
+      }
+
+      .mobile-drawer__account a {
+        padding-inline: 0.45rem;
+      }
+
+      .mobile-drawer__account a + a {
+        border-inline-start: 1px solid #ccc;
+      }
+
+      .mobile-drawer__content {
+        flex: 1 0 auto;
+        padding: 0.5rem 1.25rem 1.5rem;
+      }
+
+      .mobile-drawer__menu,
+      .mobile-drawer__submenu {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      .mobile-drawer__item {
+        border-bottom: 1px solid #eee;
+      }
+
+      .mobile-drawer__row,
+      .mobile-drawer__link {
+        display: flex;
+        width: 100%;
+        min-height: 3.25rem;
+        align-items: center;
+        justify-content: space-between;
+        color: #222;
+        font: inherit;
+        font-size: 0.95rem;
+        text-align: left;
+        text-decoration: none;
+      }
+
+      .mobile-drawer__row {
+        padding: 0;
+        border: 0;
+        background: transparent;
+        cursor: pointer;
+      }
+
+      .mobile-drawer__toggle-icon {
+        position: relative;
+        width: 1rem;
+        height: 1rem;
+        flex: 0 0 1rem;
+      }
+
+      .mobile-drawer__toggle-icon::before,
+      .mobile-drawer__toggle-icon::after {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 0.75rem;
+        height: 1px;
+        background: currentColor;
+        content: "";
+        transform: translate(-50%, -50%);
+      }
+
+      .mobile-drawer__toggle-icon::after {
+        transform: translate(-50%, -50%) rotate(90deg);
+        transition: transform 0.2s ease;
+      }
+
+      .mobile-drawer__row[aria-expanded="true"] .mobile-drawer__toggle-icon::after {
+        transform: translate(-50%, -50%) rotate(0);
+      }
+
+      .mobile-drawer__submenu {
+        padding: 0 0 0.75rem 0.75rem;
+      }
+
+      .mobile-drawer__submenu[hidden] {
+        display: none;
+      }
+
+      .mobile-drawer__submenu a {
+        display: flex;
+        min-height: 2.5rem;
+        align-items: center;
+        color: #666;
+        font-size: 0.82rem;
+        text-decoration: none;
+      }
+
+      .mobile-drawer__divider {
+        height: 1px;
+        margin: 1.25rem 0 0.5rem;
+        border: 0;
+        background: #ddd;
+      }
+
+      .mobile-drawer__language {
+        display: flex;
+        min-height: 2.75rem;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        color: #666;
+        font-size: 0.82rem;
+      }
+
+      .mobile-drawer__language select {
+        min-height: 2.25rem;
+        padding: 0 1.75rem 0 0.5rem;
+        appearance: none;
+        border: 1px solid #ddd;
+        border-radius: 0;
+        background: #fff;
+        color: #333;
+        font: inherit;
+        font-size: 0.85rem;
+      }
+
+      .header__mobile-menu {
+        padding: 0;
+        border: 0;
+        background: transparent;
+        cursor: pointer;
+      }
+
+      .gnb__list a.gnb__mobile-logo {
+        color: #e0245e;
+        font-size: 1.5rem;
+        font-weight: 700;
+        letter-spacing: -0.06em;
+        line-height: 1;
+      }
+
+      .gnb__mobile-logo span + span {
+        margin-left: 0.2rem;
+        font-size: 0.72rem;
+        letter-spacing: -0.03em;
+      }
+    </style>
     <script type="module" src="js/main.js"></script>
   </head>
   <body>
@@ -39,7 +281,7 @@
               <svg viewBox="0 0 24 24" aria-hidden="true">
                 <circle cx="10.8" cy="10.8" r="6.8"></circle>
                 <path d="m16 16 4.5 4.5"></path>
-              </svg>
+              </svg
             </a>
             <a class="icon-link" href="#site-footer" aria-label="마이페이지">
               <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -55,39 +297,118 @@
             </a>
           </nav>
         </div>
-        <nav class="header__part header__part--navigation gnb" aria-label="주요 메뉴">
+        <nav class="header__part header__part--navigation gnb" id="category" aria-label="카테고리 메뉴">
+          <button class="header__mobile-menu icon-link" type="button" aria-label="전체 메뉴 열기" aria-controls="mobile-drawer" aria-expanded="false" data-drawer-open>
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M4 6h16M4 12h16M4 18h16"></path>
+            </svg>
+          </button>
           <ul class="gnb__list">
-            <li><a href="#new-arrivals">ALBUM</a></li>
-            <li><a href="#new-arrivals">MERCH</a></li>
-            <li><a href="#new-arrivals">TOUR</a></li>
-            <li><a href="#new-arrivals">SEASONAL</a></li>
-            <li><a href="#new-arrivals">ASTERUM 433-10</a></li>
-            <li><a href="#site-footer">NOTICE</a></li>
+            <li class="gnb__mobile-logo-item">
+              <a class="gnb__mobile-logo" href="#main" aria-label="VLAST Shop 홈"><span>VLAST</span><span>Shop</span></a>
+            </li>
+            <li class="gnb__category-item"><a href="#new-arrivals">ALBUM</a></li>
+            <li class="gnb__category-item"><a href="#new-arrivals">MERCH</a></li>
+            <li class="gnb__category-item"><a href="#new-arrivals">TOUR</a></li>
+            <li class="gnb__category-item"><a href="#new-arrivals">SEASONAL</a></li>
+            <li class="gnb__category-item"><a href="#new-arrivals">ASTERUM 433-10</a></li>
+            <li class="gnb__category-item"><a href="#site-footer">NOTICE</a></li>
           </ul>
+          <a class="header__mobile-search icon-link" href="#new-arrivals" aria-label="상품 검색">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <circle cx="10.8" cy="10.8" r="6.8"></circle>
+              <path d="m16 16 4.5 4.5"></path>
+            </svg>
+          </a>
         </nav>
       </div>
     </header>
+
+    <!-- 모바일 전체 메뉴 오버레이와 드로어 -->
+    <button class="mobile-drawer-overlay" type="button" aria-label="전체 메뉴 닫기" tabindex="-1" data-drawer-overlay></button>
+    <aside class="mobile-drawer" id="mobile-drawer" role="dialog" aria-modal="true" aria-label="전체 메뉴" aria-hidden="true" inert data-drawer>
+      <header class="mobile-drawer__header">
+        <button class="mobile-drawer__close" type="button" aria-label="전체 메뉴 닫기" data-drawer-close>
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="m6 6 12 12M18 6 6 18"></path>
+          </svg>
+        </button>
+        <a class="mobile-drawer__logo" href="#main" aria-label="VLAST Shop 홈">
+          <span>VLAST</span><span>Shop</span>
+        </a>
+        <nav class="mobile-drawer__account" aria-label="회원 메뉴">
+          <a href="#site-footer">회원가입</a>
+          <a href="#site-footer">로그인</a>
+          <a href="#site-footer">주문조회</a>
+          <a href="#new-arrivals">최근본상품</a>
+        </nav>
+      </header>
+      <div class="mobile-drawer__content">
+        <nav aria-label="전체 상품 메뉴">
+          <ul class="mobile-drawer__menu" data-drawer-menu></ul>
+        </nav>
+        <hr class="mobile-drawer__divider">
+        <section aria-label="고객센터 메뉴">
+          <ul class="mobile-drawer__menu">
+            <li class="mobile-drawer__item" data-accordion-item>
+              <button class="mobile-drawer__row" type="button" aria-expanded="false" aria-controls="drawer-customer-links">
+                <span>고객센터</span><span class="mobile-drawer__toggle-icon" aria-hidden="true"></span>
+              </button>
+              <ul class="mobile-drawer__submenu" id="drawer-customer-links" hidden>
+                <li><a href="#site-footer">NOTICE</a></li>
+                <li>
+                  <div class="mobile-drawer__language">
+                    <label for="drawer-language">언어 선택</label>
+                    <select id="drawer-language" aria-label="언어 선택">
+                      <option value="ko" selected>한국어</option>
+                    </select>
+                  </div>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </section>
+      </div>
+    </aside>
 
     <main id="main">
       <section class="section-visual" aria-label="메인 배너">
         <div class="inner-box">
           <div class="visual__part">
-            <div class="visual__carousel" data-js="carousel" role="region" aria-label="메인 배너 슬라이드" aria-roledescription="carousel">
+            <div class="visual__carousel" id="visual-carousel" data-js="carousel" role="region" aria-label="메인 배너 슬라이드" aria-roledescription="carousel">
               <div class="visual__stage" aria-live="off">
-                <article class="visual__slide is-active" data-slide aria-roledescription="slide" aria-label="1 / 3">
-                  <span class="visual__eyebrow">PLAVE 5TH MINI ALBUM</span>
-                  <h1 class="visual__title">HYPERBURN</h1>
-                  <p class="visual__caption">Album Release 2026.10.13</p>
+                <article class="visual__slide visual__slide--midnight visual__slide--portrait is-active" data-slide aria-roledescription="slide" aria-label="1 / 3">
+                  <picture class="visual__picture">
+                    <source media="(max-width: 768px)" srcset="imges/img-mob/vlastshop-dt-5.jpeg">
+                    <img src="imges/img-dt/vlastshop-dt-25.jpeg" width="1920" height="600" alt="" fetchpriority="high">
+                  </picture>
+                  <div class="visual__copy">
+                    <span class="visual__eyebrow">2026 BIRTHDAY KIT</span>
+                    <h1 class="visual__title">The Universe for You</h1>
+                    <p class="visual__caption">From YEJUN · Official Merchandise</p>
+                  </div>
                 </article>
-                <article class="visual__slide visual__slide--midnight" data-slide aria-roledescription="slide" aria-label="2 / 3" aria-hidden="true">
-                  <span class="visual__eyebrow">OFFICIAL MERCHANDISE</span>
-                  <h2 class="visual__title">NEW ARRIVALS</h2>
-                  <p class="visual__caption">Discover the latest collection</p>
+                <article class="visual__slide visual__slide--midnight visual__slide--portrait" data-slide aria-roledescription="slide" aria-label="2 / 3" aria-hidden="true">
+                  <picture class="visual__picture">
+                    <source media="(max-width: 768px)" srcset="imges/img-mob/vlastshop-dt-10.png">
+                    <img src="imges/img-dt/vlastshop-dt-24.png" width="1920" height="600" alt="">
+                  </picture>
+                  <div class="visual__copy">
+                    <span class="visual__eyebrow">PLAVE 5TH MINI ALBUM</span>
+                    <h2 class="visual__title">HYPERBURN</h2>
+                    <p class="visual__caption">Album Release 2026.10.13</p>
+                  </div>
                 </article>
                 <article class="visual__slide visual__slide--soft" data-slide aria-roledescription="slide" aria-label="3 / 3" aria-hidden="true">
-                  <span class="visual__eyebrow">VLAST SHOP</span>
-                  <h2 class="visual__title">SPECIAL ITEMS</h2>
-                  <p class="visual__caption">Official goods for PLAVE fans</p>
+                  <picture class="visual__picture">
+                    <source media="(max-width: 768px)" srcset="imges/img-mob/vlastshop-dt-2.jpg">
+                    <img src="imges/img-dt/vlastshop-dt-2.jpg" width="2000" height="2000" alt="">
+                  </picture>
+                  <div class="visual__copy">
+                    <span class="visual__eyebrow">VLAST SHOP</span>
+                    <h2 class="visual__title">OFFICIAL MERCHANDISE</h2>
+                    <p class="visual__caption">Discover the latest collection</p>
+                  </div>
                 </article>
               </div>
               <button class="visual__arrow visual__arrow--previous" type="button" data-carousel-previous aria-label="이전 배너">
@@ -96,15 +417,86 @@
               <button class="visual__arrow visual__arrow--next" type="button" data-carousel-next aria-label="다음 배너">
                 <span aria-hidden="true">›</span>
               </button>
-              <div class="visual__controls">
-                <div class="visual__pagination" role="group" aria-label="배너 선택">
-                  <button class="visual__dot is-active" type="button" data-carousel-dot="0" aria-label="배너 1" aria-current="true"></button>
-                  <button class="visual__dot" type="button" data-carousel-dot="1" aria-label="배너 2"></button>
-                  <button class="visual__dot" type="button" data-carousel-dot="2" aria-label="배너 3"></button>
-                </div>
-                <button class="visual__toggle" type="button" data-carousel-toggle aria-label="자동 재생 정지">정지</button>
-              </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section-fixed-ui" aria-label="화면 고정 메뉴">
+        <div class="inner-box">
+          <h2 class="fixed-ui__title">화면 고정 메뉴</h2>
+          <div class="fixed-ui__part">
+            <nav class="visual__controls" data-js="carousel-controls" aria-label="메인 배너 컨트롤" aria-controls="visual-carousel">
+              <div class="visual__pagination" role="group" aria-label="배너 선택">
+                <button class="visual__dot is-active" type="button" data-carousel-dot="0" aria-label="배너 1" aria-current="true"></button>
+                <button class="visual__dot" type="button" data-carousel-dot="1" aria-label="배너 2"></button>
+                <button class="visual__dot" type="button" data-carousel-dot="2" aria-label="배너 3"></button>
+              </div>
+              <button class="visual__toggle" type="button" data-carousel-toggle aria-label="자동 재생 정지">정지</button>
+            </nav>
+
+            <nav class="floating-ui" aria-label="바로가기">
+              <a class="floating-ui__button" href="#main" aria-label="맨 위로">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M12 19V5M6 11l6-6 6 6"></path>
+                </svg>
+              </a>
+              <a class="floating-ui__button" href="#site-footer" aria-label="고객센터">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M4 5.5h16v11H9l-5 3z"></path>
+                  <path d="M8 10h8M8 13h5"></path>
+                </svg>
+              </a>
+            </nav>
+
+            <nav class="bottom-nav" aria-label="모바일 하단 메뉴">
+              <ul class="bottom-nav__list">
+                <li>
+                  <a href="#category" aria-label="카테고리">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                      <path d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                    <span>카테고리</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="#new-arrivals" aria-label="검색">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                      <circle cx="10.8" cy="10.8" r="6.8"></circle>
+                      <path d="m16 16 4.5 4.5"></path>
+                    </svg>
+                    <span>검색</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="#main" aria-current="page" aria-label="홈">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                      <path d="m3 10 9-7 9 7v10H3z"></path>
+                      <path d="M9 20v-6h6v6"></path>
+                    </svg>
+                    <span>홈</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="#site-footer" aria-label="장바구니">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                      <path d="M5 8h14l1.2 12H3.8z"></path>
+                      <path d="M9 9V6a3 3 0 0 1 6 0v3"></path>
+                    </svg>
+                    <span>장바구니</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="#site-footer" aria-label="마이페이지">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                      <circle cx="12" cy="7.5" r="4"></circle>
+                      <path d="M4.5 20c.5-4 3.1-6 7.5-6s7 2 7.5 6z"></path>
+                    </svg>
+                    <span>마이</span>
+                  </a>
+                </li>
+              </ul>
+            </nav>
           </div>
         </div>
       </section>
@@ -113,7 +505,7 @@
         <div class="inner-box">
           <div class="new__content">
             <h2 class="section-new__title" id="new-title">NEW ARRIVALS</h2>
-            <ul class="new__part" id="category" aria-label="신상품">
+            <ul class="new__part" id="new-arrival-products" aria-label="신상품">
               <li class="card">
                 <a class="card__link" href="#site-footer">
                   <span class="card__thumb" role="img" aria-label="상품 이미지 자리">PRODUCT IMAGE</span>
@@ -163,5 +555,142 @@
         </div>
       </div>
     </footer>
+    <script>
+      // 전체 메뉴 데이터와 렌더링
+      const drawerMenuItems = [
+        { label: "ALBUM", href: "#new-arrivals" },
+        { label: "MERCH", href: "#new-arrivals", children: ["W4L", "PUMP UP THE VOLUME", "DASH", "HAPPY PLAVE DAY", "KAKURENBO", "BBUU", "BORN SAVAGE", "TEAM PLAVE", "BOOK"] },
+        { label: "TOUR", href: "#new-arrivals", children: ["1ST FANCON", "1ST FANCON ENCORE", "2025 TOUR", "2025 TOUR ENCORE", "2026 TOUR"] },
+        { label: "SEASONAL", href: "#new-arrivals", children: ["SEASON'S GREETINGS", "BIRTHDAY KIT"] },
+        { label: "ASTERUM 433-10", href: "#new-arrivals" },
+        { label: "NOTICE", href: "#site-footer" }
+      ];
+
+      const drawer = document.querySelector("[data-drawer]");
+      const drawerOverlay = document.querySelector("[data-drawer-overlay]");
+      const drawerOpenButton = document.querySelector("[data-drawer-open]");
+      const drawerCloseButton = document.querySelector("[data-drawer-close]");
+      const drawerMenu = document.querySelector("[data-drawer-menu]");
+      let previousBodyOverflow = "";
+
+      function createDrawerLink(label, href) {
+        const link = document.createElement("a");
+        link.className = "mobile-drawer__link";
+        link.href = href;
+        link.textContent = label;
+        return link;
+      }
+
+      function renderDrawerMenu() {
+        drawerMenuItems.forEach((item, index) => {
+          const listItem = document.createElement("li");
+          listItem.className = "mobile-drawer__item";
+
+          if (!item.children) {
+            const row = document.createElement("div");
+            row.className = "mobile-drawer__row";
+            row.append(createDrawerLink(item.label, item.href));
+            listItem.append(row);
+          } else {
+            const submenuId = `drawer-submenu-${index}`;
+            const button = document.createElement("button");
+            button.className = "mobile-drawer__row";
+            button.type = "button";
+            button.setAttribute("aria-expanded", "false");
+            button.setAttribute("aria-controls", submenuId);
+
+            const label = document.createElement("span");
+            label.textContent = item.label;
+            const icon = document.createElement("span");
+            icon.className = "mobile-drawer__toggle-icon";
+            icon.setAttribute("aria-hidden", "true");
+            button.append(label, icon);
+
+            const submenu = document.createElement("ul");
+            submenu.className = "mobile-drawer__submenu";
+            submenu.id = submenuId;
+            submenu.hidden = true;
+            item.children.forEach((child) => {
+              const childItem = document.createElement("li");
+              childItem.append(createDrawerLink(child, item.href));
+              submenu.append(childItem);
+            });
+
+            listItem.append(button, submenu);
+          }
+
+          drawerMenu.append(listItem);
+        });
+      }
+
+      // 드로어 열기·닫기와 키보드 접근성
+      function openDrawer() {
+        previousBodyOverflow = document.body.style.overflow;
+        document.body.style.overflow = "hidden";
+        drawer.inert = false;
+        drawer.setAttribute("aria-hidden", "false");
+        drawer.classList.add("is-open");
+        drawerOverlay.classList.add("is-open");
+        drawerOpenButton.setAttribute("aria-expanded", "true");
+        drawerCloseButton.focus();
+      }
+
+      function closeDrawer(restoreFocus = true) {
+        drawer.classList.remove("is-open");
+        drawerOverlay.classList.remove("is-open");
+        drawer.setAttribute("aria-hidden", "true");
+        drawer.inert = true;
+        drawerOpenButton.setAttribute("aria-expanded", "false");
+        document.body.style.overflow = previousBodyOverflow;
+
+        if (restoreFocus) {
+          drawerOpenButton.focus();
+        }
+      }
+
+      renderDrawerMenu();
+      drawerOpenButton.addEventListener("click", openDrawer);
+      drawerCloseButton.addEventListener("click", () => closeDrawer());
+      drawerOverlay.addEventListener("click", () => closeDrawer());
+      drawer.addEventListener("click", (event) => {
+        const accordionButton = event.target.closest(".mobile-drawer__row[aria-controls]");
+        if (accordionButton) {
+          const expanded = accordionButton.getAttribute("aria-expanded") === "true";
+          accordionButton.setAttribute("aria-expanded", String(!expanded));
+          document.getElementById(accordionButton.getAttribute("aria-controls")).hidden = expanded;
+          return;
+        }
+
+        if (event.target.closest("a")) {
+          closeDrawer(false);
+        }
+      });
+
+      document.addEventListener("keydown", (event) => {
+        if (!drawer.classList.contains("is-open")) {
+          return;
+        }
+
+        if (event.key === "Escape") {
+          closeDrawer();
+          return;
+        }
+
+        if (event.key === "Tab") {
+          const focusable = [...drawer.querySelectorAll('a[href], button:not([disabled]), select:not([disabled])')]
+            .filter((element) => !element.closest("[hidden]") && element.getClientRects().length > 0);
+          const first = focusable[0];
+          const last = focusable[focusable.length - 1];
+
+          if (event.shiftKey && document.activeElement === first) {
+            event.preventDefault();
+            last.focus();
+          } else if (!event.shiftKey && document.activeElement === last) {
+            event.preventDefault();
+            first.focus();
+          }
+        }
+      });
+    </script>
   </body>
 </html>

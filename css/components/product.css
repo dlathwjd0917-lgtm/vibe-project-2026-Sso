@@ -1,6 +1,7 @@
 .section-new {
   padding-block-start: var(--section-new-pt);
   margin-block-end: var(--section-new-mb);
+  scroll-margin-top: var(--header-fixed-height);
 }
 
 .new__content {
@@ -73,7 +74,7 @@
   text-align: center;
 }
 
-@media (max-width: 720px) {
+@media (max-width: 768px) {
   .new__content {
     width: 100%;
   }

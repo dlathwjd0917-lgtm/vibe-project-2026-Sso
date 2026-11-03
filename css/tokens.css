@@ -28,7 +28,7 @@
   --banner-pc-ratio: 1920 / 600;
   --banner-mo-ratio: 720 / 767;
   --banner-background: #4b4ba2; /* MEASURE */
-  --banner-background-midnight: #15151b; /* PROVISIONAL */
+  --banner-background-midnight: #000000; /* PROVISIONAL */
   --banner-background-soft: #dce5f2; /* PROVISIONAL */
   --banner-text: #ffffff;
   --banner-text-soft: #23232a; /* PROVISIONAL */
@@ -47,6 +47,53 @@
   --visually-hidden-offset: -1px;
   --slider-fade: 500ms;
   --slider-pause: 4000ms;
+
+  --z-base: 0;
+  --z-dropdown: 100;
+  --z-fixed-header: 200;
+  --z-fixed-ui: 210;
+  --z-bottom-nav: 300;
+
+  --hero-height: 100vh;
+  --hero-height-safe: 100svh;
+  --hero-copy-inset: 3rem;
+  --hero-copy-inset-mobile: 1rem;
+  --hero-copy-gap: 0.75rem;
+  --hero-copy-max-width: 48rem;
+  --hero-copy-max-width-mobile: 20rem;
+  --hero-overlay: linear-gradient(0deg, rgb(0 0 0 / 0.62) 0%, rgb(0 0 0 / 0.18) 45%, transparent 100%);
+  --hero-text-color: #ffffff;
+  --hero-text-shadow: 0 1px 3px rgb(0 0 0 / 0.35);
+  --hero-eyebrow-size: 1rem;
+  --hero-eyebrow-size-mobile: 0.75rem;
+  --hero-eyebrow-tracking: 0.08em;
+  --hero-title-size: clamp(2rem, 4vw, 4rem);
+  --hero-title-size-mobile: clamp(1.75rem, 7vw, 2.5rem);
+  --hero-caption-size: 0.875rem;
+  --hero-caption-size-mobile: 0.75rem;
+  --hero-arrow-size-mobile: 1.5rem;
+  --hero-control-inset: 1.5rem;
+  --hero-control-inset-mobile: 0.5rem;
+  --hero-next-arrow-inset: calc(var(--hero-control-inset) + var(--tap-target-size) + var(--space-3));
+  --hero-next-arrow-inset-mobile: calc(var(--hero-control-inset-mobile) + var(--tap-target-size) + var(--space-2));
+  --hero-indicator-gap: 0.5rem;
+  --hero-indicator-size: 0.75rem;
+  --hero-indicator-size-mobile: 0.625rem;
+  --hero-indicator-active-size: 1.75rem;
+  --hero-indicator-active-size-mobile: 1.5rem;
+  --hero-indicator-background: rgb(255 255 255 / 0.25);
+  --hero-toggle-size-mobile: 2.25rem;
+  --hero-toggle-font-size-mobile: 0.625rem;
+  --header-mobile-h: 2.75rem;
+  --header-fixed-height: 10.5rem;
+  --fs-gnb-mobile: 0.625rem;
+  --bottom-nav-height: 4rem;
+  --bottom-nav-item-min-width: 2.75rem;
+  --bottom-nav-label-size: 0.625rem;
+  --floating-button-size: 3rem;
+  --floating-button-size-mobile: 2.75rem;
+  --floating-ui-inset: 1.5rem;
+  --floating-ui-inset-mobile: 0.5rem;
 
   --section-new-pt: 5rem; /* PROVISIONAL */
   --section-new-mb: 7.5rem;
@@ -74,6 +121,7 @@
   --lh-body: 1.5;
 
   --color-bg: #ffffff;
+  --color-surface: #f7f7f7; /* PROVISIONAL */
   --color-text: #111111; /* MEASURE */
   --color-muted: #666666; /* MEASURE */
   --color-border: #e5e5e5; /* MEASURE */
@@ -98,10 +146,22 @@
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-@media (min-width: 721px) {
+@media (min-width: 769px) {
   :root {
     --inner-gutter: 2.5rem; /* PROVISIONAL */
     --cols-card: var(--cols-card-pc);
+  }
+}
+
+@supports (height: 100svh) {
+  :root {
+    --hero-height: var(--hero-height-safe);
+  }
+}
+
+@media (max-width: 768px) {
+  :root {
+    --header-fixed-height: 2.75rem;
   }
 }
 

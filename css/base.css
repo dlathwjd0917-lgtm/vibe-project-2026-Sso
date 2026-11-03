@@ -7,6 +7,7 @@ body {
   line-height: var(--lh-body);
   word-break: keep-all;
   overflow-wrap: break-word;
+  overflow-x: clip;
   -webkit-font-smoothing: antialiased;
 }
 

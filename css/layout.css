@@ -14,6 +14,9 @@
 .visual__part,
 .visual__controls,
 .visual__pagination,
+.fixed-ui__part,
+.floating-ui,
+.bottom-nav__list,
 .new__content,
 .new__part,
 .card__body,
@@ -55,7 +58,7 @@
   justify-content: center;
 }
 
-@media (min-width: 721px) {
+@media (min-width: 769px) {
   .inner-box {
     padding-inline: var(--inner-gutter);
   }

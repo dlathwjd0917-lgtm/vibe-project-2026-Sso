@@ -5,13 +5,15 @@ export function initCarousel(root = document) {
     return;
   }
 
+  const controls = root.querySelector('[data-js="carousel-controls"]');
   const slides = [...carousel.querySelectorAll("[data-slide]")];
-  const dots = [...carousel.querySelectorAll("[data-carousel-dot]")];
+  const dots = controls ? [...controls.querySelectorAll("[data-carousel-dot]")] : [];
   const previousButton = carousel.querySelector("[data-carousel-previous]");
   const nextButton = carousel.querySelector("[data-carousel-next]");
-  const toggleButton = carousel.querySelector("[data-carousel-toggle]");
+  const toggleButton = controls?.querySelector("[data-carousel-toggle]");
 
   if (
+    !controls ||
     slides.length === 0 ||
     dots.length !== slides.length ||
     !previousButton ||
@@ -97,6 +99,14 @@ export function initCarousel(root = document) {
   carousel.addEventListener("focusin", stopAutoplay);
   carousel.addEventListener("focusout", (event) => {
     if (!carousel.contains(event.relatedTarget)) {
+      startAutoplay();
+    }
+  });
+  controls.addEventListener("mouseenter", stopAutoplay);
+  controls.addEventListener("mouseleave", startAutoplay);
+  controls.addEventListener("focusin", stopAutoplay);
+  controls.addEventListener("focusout", (event) => {
+    if (!controls.contains(event.relatedTarget)) {
       startAutoplay();
     }
   });
