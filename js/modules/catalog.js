@@ -15,35 +15,42 @@ const categoriesByParent = {
   SEASONAL: ["SEASON'S GREETINGS", "BIRTHDAY KIT"]
 };
 
-const imageFiles = [
-  "vlastshop-dt-1.png", "vlastshop-dt-2.jpg", "vlastshop-dt-3.jpg", "vlastshop-dt-4.jpg",
-  "vlastshop-dt-5.jpeg", "vlastshop-dt-6.jpeg", "vlastshop-dt-7.jpg", "vlastshop-dt-8.jpeg",
-  "vlastshop-dt-9.png", "vlastshop-dt-10.png", "vlastshop-dt-11.png", "vlastshop-dt-12.png",
-  "vlastshop-dt-13.png", "vlastshop-dt-14.png", "vlastshop-dt-15.png", "vlastshop-dt-16.png",
-  "vlastshop-dt-17.png", "vlastshop-dt-18.png", "vlastshop-dt-19.png", "vlastshop-dt-20.png",
-  "vlastshop-dt-21.png", "vlastshop-dt-22.png", "vlastshop-dt-23.png", "vlastshop-dt-24.png",
-  "vlastshop-dt-25.jpeg", "vlastshop-dt-26.jpg", "vlastshop-dt-27.jpeg", "vlastshop-dt-28.png",
-  "vlastshop-dt-29.jpg", "vlastshop-dt-30.gif", "vlastshop-dt-31.gif", "vlastshop-dt-32.png",
-  "vlastshop-dt-33.gif", "vlastshop-dt-34.jpg", "vlastshop-dt-35.jpg", "vlastshop-dt-36.png",
-  "vlastshop-dt-37.png"
-];
-
 const itemsPerPage = 20;
-const products = Object.entries(categoriesByParent).flatMap(([parentCategory, childCategories]) => {
-  const categories = childCategories.length > 0 ? childCategories : [parentCategory];
-  return Array.from({ length: 54 }, (_, index) => ({
-    parentCategory,
-    category: categories[index % categories.length],
-    name: `상품명 영역 ${String(index + 1).padStart(2, "0")}`,
-    imageFile: imageFiles[index % imageFiles.length],
-    price: index + 1
-  }));
-});
+const products = [];
 
 let selectedParent = "TOUR";
 let selectedCategory = "all";
 let selectedPage = 1;
 let selectedSort = "default";
+
+async function loadProductData() {
+  const response = await fetch("data/product_data_json.md");
+  if (!response.ok) {
+    throw new Error("상품 데이터를 불러오지 못했습니다.");
+  }
+
+  const records = await response.json();
+  if (!Array.isArray(records)) {
+    throw new Error("상품 데이터 형식이 올바르지 않습니다.");
+  }
+
+  return records
+    .filter((record) => record
+      && typeof record.name === "string"
+      && Number.isFinite(record.price)
+      && typeof record.image_url === "string"
+      && typeof record.link === "string")
+    .map((record) => ({
+      id: record.id,
+      parentCategory: "TOUR",
+      category: "1ST FANCON",
+      name: record.name,
+      price: record.price,
+      imageUrl: record.image_url,
+      href: new URL(record.link, "https://vlastshop.com").href,
+      isSoldOut: record.is_sold_out === true
+    }));
+}
 
 function getVisibleProducts() {
   const parentProducts = products.filter((product) => product.parentCategory === selectedParent);
@@ -84,22 +91,17 @@ function createProductCard(product) {
   item.className = "card";
   const link = document.createElement("a");
   link.className = "card__link";
-  link.href = "#site-footer";
+  link.href = product.href;
 
   const thumb = document.createElement("span");
   thumb.className = "card__thumb";
-  const picture = document.createElement("picture");
-  const mobileSource = document.createElement("source");
-  mobileSource.media = "(max-width: 768px)";
-  mobileSource.srcset = `imges/img-mob/${product.imageFile}`;
   const image = document.createElement("img");
-  image.src = `imges/img-dt/${product.imageFile}`;
+  image.src = product.imageUrl;
   image.alt = `${product.name} 상품 이미지`;
   image.width = 1000;
   image.height = 1000;
   image.loading = "lazy";
-  picture.append(mobileSource, image);
-  thumb.append(picture);
+  thumb.append(image);
 
   const body = document.createElement("span");
   body.className = "card__body";
@@ -108,8 +110,14 @@ function createProductCard(product) {
   name.textContent = product.name;
   const price = document.createElement("span");
   price.className = "card__price";
-  price.textContent = "판매가 영역";
+  price.textContent = `${product.price.toLocaleString("ko-KR")}원`;
   body.append(name, price);
+  if (product.isSoldOut) {
+    const soldOut = document.createElement("span");
+    soldOut.className = "card__soldout";
+    soldOut.textContent = "품절";
+    body.append(soldOut);
+  }
   link.append(thumb, body);
   item.append(link);
   return item;
@@ -146,7 +154,7 @@ function renderCatalog(elements) {
   renderPagination(elements.pagination, elements.pageList, totalPages);
 }
 
-export function initCatalog() {
+export async function initCatalog() {
   const grid = document.querySelector("[data-product-grid]");
   const itemCount = document.querySelector("[data-items-count]");
   const pagination = document.querySelector("[data-catalog-pagination]");
@@ -158,6 +166,18 @@ export function initCatalog() {
   }
 
   const elements = { grid, itemCount, pagination, pageList };
+  itemCount.textContent = "상품 데이터를 불러오는 중입니다.";
+  try {
+    products.push(...await loadProductData());
+  } catch {
+    itemCount.textContent = "상품 데이터를 불러오지 못했습니다.";
+    return;
+  }
+  if (products.length === 0) {
+    itemCount.textContent = "표시할 상품이 없습니다.";
+    return;
+  }
+
   renderCategoryOptions(categoryScroller, selectedParent, selectedCategory);
   categoryScroller.addEventListener("click", (event) => {
     const button = event.target.closest("[data-category-option]");

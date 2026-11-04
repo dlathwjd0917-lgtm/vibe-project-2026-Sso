@@ -78,6 +78,15 @@
   font-weight: var(--fw-bold);
 }
 
+.card__soldout {
+  display: inline-flex;
+  padding-inline: var(--space-1);
+  background: var(--color-text);
+  color: var(--color-bg);
+  font-size: var(--fs-utility);
+  line-height: var(--lh-tight);
+}
+
 .site-footer {
   padding-block: var(--space-8);
   border-block-start: var(--border-width) solid var(--color-border);
