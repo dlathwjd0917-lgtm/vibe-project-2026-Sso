@@ -19,43 +19,95 @@ const itemsPerPage = 20;
 const products = [];
 
 let selectedParent = "TOUR";
-let selectedCategory = "all";
+let selectedCategory = "1ST FANCON"; // 기본으로 이전에 요청된 1ST FANCON 상품이 먼저 노출
 let selectedPage = 1;
 let selectedSort = "default";
 
+/**
+ * 1ST FANCON(이전 데이터)과 2025 TOUR(현재 데이터)를 모두 로드하여 병합
+ */
 async function loadProductData() {
-  const response = await fetch("data/product_data_json.md");
-  if (!response.ok) {
+  const allProducts = [];
+
+  // 1. 이전 1ST FANCON 데이터 (data/product_data_json.md) 로드
+  try {
+    const fanconResponse = await fetch("data/product_data_json.md");
+    if (fanconResponse.ok) {
+      const fanconRecords = await fanconResponse.json();
+      if (Array.isArray(fanconRecords)) {
+        const fanconProducts = fanconRecords
+          .filter((record) => record
+            && typeof record.name === "string"
+            && (Number.isFinite(record.price) || typeof record.price === "number")
+            && typeof record.image_url === "string"
+            && (typeof record.link === "string" || typeof record.product_url === "string"))
+          .map((record) => {
+            const urlPath = record.link || record.product_url || "#";
+            const numPrice = Number(record.price);
+            return {
+              id: record.id,
+              parentCategory: "TOUR",
+              category: "1ST FANCON",
+              name: record.name,
+              price: numPrice,
+              priceDisplay: record.price_display || `${numPrice.toLocaleString("ko-KR")}원`,
+              imageUrl: record.image_url,
+              href: new URL(urlPath, "https://vlastshop.com").href,
+              isSoldOut: record.is_sold_out === true
+            };
+          });
+        allProducts.push(...fanconProducts);
+      }
+    }
+  } catch (error) {
+    console.warn("1ST FANCON 데이터 로드 실패:", error);
+  }
+
+  // 2. 현재 2025 TOUR 데이터 (data/products.json) 로드
+  try {
+    const tourResponse = await fetch("data/products.json");
+    if (tourResponse.ok) {
+      const tourRecords = await tourResponse.json();
+      if (Array.isArray(tourRecords)) {
+        const tourProducts = tourRecords
+          .filter((record) => record
+            && typeof record.name === "string"
+            && (Number.isFinite(record.price) || typeof record.price === "number")
+            && typeof record.image_url === "string"
+            && (typeof record.product_url === "string" || typeof record.link === "string"))
+          .map((record) => {
+            const urlPath = record.product_url || record.link || "#";
+            const numPrice = Number(record.price);
+            return {
+              id: record.id,
+              parentCategory: "TOUR",
+              category: "2025 TOUR",
+              name: record.name,
+              price: numPrice,
+              priceDisplay: record.price_display || `${numPrice.toLocaleString("ko-KR")}원`,
+              imageUrl: record.image_url,
+              href: new URL(urlPath, "https://vlastshop.com").href,
+              isSoldOut: record.is_sold_out === true
+            };
+          });
+        allProducts.push(...tourProducts);
+      }
+    }
+  } catch (error) {
+    console.warn("2025 TOUR 데이터 로드 실패:", error);
+  }
+
+  if (allProducts.length === 0) {
     throw new Error("상품 데이터를 불러오지 못했습니다.");
   }
 
-  const records = await response.json();
-  if (!Array.isArray(records)) {
-    throw new Error("상품 데이터 형식이 올바르지 않습니다.");
-  }
-
-  return records
-    .filter((record) => record
-      && typeof record.name === "string"
-      && Number.isFinite(record.price)
-      && typeof record.image_url === "string"
-      && typeof record.link === "string")
-    .map((record) => ({
-      id: record.id,
-      parentCategory: "TOUR",
-      category: "1ST FANCON",
-      name: record.name,
-      price: record.price,
-      imageUrl: record.image_url,
-      href: new URL(record.link, "https://vlastshop.com").href,
-      isSoldOut: record.is_sold_out === true
-    }));
+  return allProducts;
 }
 
 function getVisibleProducts() {
   const parentProducts = products.filter((product) => product.parentCategory === selectedParent);
   const filtered = selectedCategory === "all"
-    ? parentProducts
+    ? [...parentProducts]
     : parentProducts.filter((product) => product.category === selectedCategory);
 
   if (selectedSort === "name") {
@@ -86,38 +138,61 @@ function renderCategoryOptions(scroller, parentCategory, activeCategory) {
   }));
 }
 
+/**
+ * 상품 카드 박스 생성
+ */
 function createProductCard(product) {
   const item = document.createElement("li");
   item.className = "card";
+  item.dataset.productId = String(product.id);
+  item.dataset.category = product.category;
+
   const link = document.createElement("a");
   link.className = "card__link";
   link.href = product.href;
+  link.setAttribute(
+    "aria-label",
+    `${product.name} - ${product.priceDisplay}${product.isSoldOut ? " (품절)" : ""}`
+  );
 
   const thumb = document.createElement("span");
   thumb.className = "card__thumb";
+
   const image = document.createElement("img");
   image.src = product.imageUrl;
   image.alt = `${product.name} 상품 이미지`;
   image.width = 1000;
   image.height = 1000;
   image.loading = "lazy";
+  image.onerror = () => {
+    image.style.display = "none";
+    thumb.classList.add("is-fallback");
+    if (!thumb.textContent) {
+      thumb.textContent = product.name;
+    }
+  };
   thumb.append(image);
 
   const body = document.createElement("span");
   body.className = "card__body";
+
   const name = document.createElement("span");
   name.className = "card__name";
   name.textContent = product.name;
+
   const price = document.createElement("span");
   price.className = "card__price";
-  price.textContent = `${product.price.toLocaleString("ko-KR")}원`;
+  price.textContent = product.priceDisplay;
+
   body.append(name, price);
+
   if (product.isSoldOut) {
     const soldOut = document.createElement("span");
     soldOut.className = "card__soldout";
     soldOut.textContent = "품절";
     body.append(soldOut);
   }
+
   link.append(thumb, body);
   item.append(link);
   return item;
@@ -144,13 +219,25 @@ function renderPagination(pagination, pageList, totalPages) {
 
 function renderCatalog(elements) {
   const visibleProducts = getVisibleProducts();
+  elements.itemCount.textContent = `${visibleProducts.length} ITEMS`;
+
+  if (visibleProducts.length === 0) {
+    elements.grid.replaceChildren();
+    const emptyNotice = document.createElement("li");
+    emptyNotice.className = "card-empty";
+    emptyNotice.style.cssText = "width: 100%; text-align: center; padding: 4rem 1rem; color: #888888;";
+    emptyNotice.textContent = "해당 카테고리에 등록된 상품이 없습니다.";
+    elements.grid.append(emptyNotice);
+    renderPagination(elements.pagination, elements.pageList, 1);
+    return;
+  }
+
   const totalPages = Math.max(1, Math.ceil(visibleProducts.length / itemsPerPage));
   selectedPage = Math.min(selectedPage, totalPages);
   const start = (selectedPage - 1) * itemsPerPage;
   const currentProducts = visibleProducts.slice(start, start + itemsPerPage);
 
   elements.grid.replaceChildren(...currentProducts.map(createProductCard));
-  elements.itemCount.textContent = `${visibleProducts.length} ITEMS`;
   renderPagination(elements.pagination, elements.pageList, totalPages);
 }
 
@@ -161,24 +248,33 @@ export async function initCatalog() {
   const pageList = document.querySelector("[data-page-list]");
   const categoryScroller = document.querySelector("[data-category-scroller]");
   const sortSelect = document.querySelector("[data-catalog-sort]");
+
   if (!grid || !itemCount || !pagination || !pageList || !categoryScroller || !sortSelect) {
     return;
   }
 
   const elements = { grid, itemCount, pagination, pageList };
   itemCount.textContent = "상품 데이터를 불러오는 중입니다.";
+
   try {
-    products.push(...await loadProductData());
-  } catch {
+    const loaded = await loadProductData();
+    products.length = 0;
+    products.push(...loaded);
+  } catch (error) {
+    console.error("상품 데이터 로드 에러:", error);
     itemCount.textContent = "상품 데이터를 불러오지 못했습니다.";
     return;
   }
+
   if (products.length === 0) {
     itemCount.textContent = "표시할 상품이 없습니다.";
     return;
   }
 
+  // 하위 카테고리 버튼 목록 렌더링 및 활성 상태 반영
   renderCategoryOptions(categoryScroller, selectedParent, selectedCategory);
+
+  // 하위 카테고리 버튼 클릭 이벤트 리스너: 버튼 누를 때마다 해당 카테고리 데이터로 즉시 전환
   categoryScroller.addEventListener("click", (event) => {
     const button = event.target.closest("[data-category-option]");
     if (!button) {
@@ -187,17 +283,20 @@ export async function initCatalog() {
 
     selectedCategory = button.dataset.categoryOption;
     selectedPage = 1;
+
     categoryScroller.querySelectorAll("[data-category-option]").forEach((option) => {
       const isActive = option === button;
       option.classList.toggle("is-active", isActive);
       option.setAttribute("aria-pressed", String(isActive));
     });
+
     const buttonBounds = button.getBoundingClientRect();
     const railBounds = categoryScroller.getBoundingClientRect();
     categoryScroller.scrollBy({
       left: buttonBounds.left - railBounds.left - (railBounds.width - buttonBounds.width) / 2,
       behavior: "smooth"
     });
+
     renderCatalog(elements);
   });
 
@@ -206,6 +305,7 @@ export async function initCatalog() {
     selectedPage = 1;
     renderCatalog(elements);
   });
+
   pagination.addEventListener("click", (event) => {
     const pageButton = event.target.closest("[data-page]");
     if (pageButton) {
@@ -222,6 +322,7 @@ export async function initCatalog() {
     document.querySelector("#new-arrivals").scrollIntoView({ block: "start", behavior: "smooth" });
   });
 
+  // 상위 GNB나 드로어에서 카테고리 클릭 시
   document.addEventListener("click", (event) => {
     const categoryControl = event.target.closest("[data-catalog-parent], [data-catalog-category]");
     if (!categoryControl) {
@@ -234,11 +335,12 @@ export async function initCatalog() {
     }
 
     selectedParent = parentCategory;
-    selectedCategory = categoryControl.dataset.catalogCategory ?? "all";
+    selectedCategory = categoryControl.dataset.catalogCategory ?? (parentCategory === "TOUR" ? "1ST FANCON" : "all");
     selectedPage = 1;
     renderCategoryOptions(categoryScroller, selectedParent, selectedCategory);
     renderCatalog(elements);
   });
 
+  // 초기 렌더링
   renderCatalog(elements);
 }

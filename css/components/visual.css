@@ -215,10 +215,6 @@
   stroke-width: var(--icon-stroke-width);
 }
 
-.bottom-nav {
-  display: none;
-}
-
 .visual__carousel:has(.visual__slide--soft.is-active) .visual__arrow {
   color: var(--hero-text-color);
 }
@@ -294,45 +290,5 @@
   .floating-ui__button {
     width: var(--floating-button-size-mobile);
     height: var(--floating-button-size-mobile);
-  }
-
-  .bottom-nav {
-    position: fixed;
-    z-index: var(--z-bottom-nav);
-    inset-inline: 0;
-    bottom: 0;
-    display: flex;
-    min-height: calc(var(--bottom-nav-height) + env(safe-area-inset-bottom));
-    padding-block-end: env(safe-area-inset-bottom);
-    border-block-start: var(--border-width) solid var(--color-border);
-    background: var(--color-bg);
-  }
-
-  .bottom-nav__list {
-    width: 100%;
-    align-items: center;
-    justify-content: space-around;
-  }
-
-  .bottom-nav__list a {
-    display: flex;
-    min-width: var(--bottom-nav-item-min-width);
-    min-height: var(--bottom-nav-height);
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    gap: var(--space-1);
-    color: var(--color-text);
-    font-size: var(--bottom-nav-label-size);
-  }
-
-  .bottom-nav__list svg {
-    width: var(--icon-size);
-    height: var(--icon-size);
-    fill: none;
-    stroke: var(--color-icon);
-    stroke-linecap: round;
-    stroke-linejoin: round;
-    stroke-width: var(--icon-stroke-width);
   }
 }
