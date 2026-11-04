@@ -407,7 +407,7 @@
           </a>
           <nav class="header__utility-links" aria-label="회원 메뉴">
             <a href="#site-footer">회원가입</a>
-            <a href="#site-footer">로그인</a>
+            <a href="login.html">로그인</a>
             <a href="#site-footer">주문조회</a>
             <a href="#new-arrivals">최근본상품</a>
           </nav>
@@ -424,7 +424,7 @@
                 <path d="m16 16 4.5 4.5"></path>
               </svg
             </a>
-            <a class="icon-link" href="#site-footer" aria-label="마이페이지">
+            <a class="icon-link" href="login.html" aria-label="로그인">
               <svg viewBox="0 0 24 24" aria-hidden="true">
                 <circle cx="12" cy="7.5" r="4"></circle>
                 <path d="M4.5 20c.5-4 3.1-6 7.5-6s7 2 7.5 6z"></path>
@@ -479,7 +479,7 @@
         </a>
         <nav class="mobile-drawer__account" aria-label="회원 메뉴">
           <a href="#site-footer">회원가입</a>
-          <a href="#site-footer">로그인</a>
+          <a href="login.html">로그인</a>
           <a href="#site-footer">주문조회</a>
           <a href="#new-arrivals">최근본상품</a>
         </nav>
@@ -650,7 +650,7 @@
                   </a>
                 </li>
                 <li>
-                  <a href="#site-footer" aria-label="마이페이지">
+                  <a href="login.html" aria-label="로그인">
                     <svg viewBox="0 0 24 24" aria-hidden="true">
                       <circle cx="12" cy="7.5" r="4"></circle>
                       <path d="M4.5 20c.5-4 3.1-6 7.5-6s7 2 7.5 6z"></path>
@@ -667,45 +667,41 @@
       <section class="section-new" id="new-arrivals" aria-labelledby="new-title">
         <div class="inner-box">
           <div class="new__content">
-            <h2 class="section-new__title" id="new-title">NEW ARRIVALS</h2>
-            <ul class="new__part" id="new-arrival-products" aria-label="신상품">
-              <li class="card">
-                <a class="card__link" href="#site-footer">
-                  <span class="card__thumb"><img src="imges/img-dt/vlastshop-dt-1.png" alt="2026 생일 키트 상품"></span>
-                  <span class="card__body">
-                    <span class="card__name">상품명 영역</span>
-                    <span class="card__price">43,000원</span>
-                  </span>
-                </a>
-              </li>
-              <li class="card">
-                <a class="card__link" href="#site-footer">
-                  <span class="card__thumb"><img src="imges/img-dt/vlastshop-dt-3.jpg" alt="PLAVE 미니 앨범 공식 굿즈"></span>
-                  <span class="card__body">
-                    <span class="card__name">상품명 영역</span>
-                    <span class="card__price">43,000원</span>
-                  </span>
-                </a>
-              </li>
-              <li class="card">
-                <a class="card__link" href="#site-footer">
-                  <span class="card__thumb"><img src="imges/img-dt/vlastshop-dt-9.png" alt="PLAVE 캐릭터 상품"></span>
-                  <span class="card__body">
-                    <span class="card__name">상품명 영역</span>
-                    <span class="card__price">43,000원</span>
-                  </span>
-                </a>
-              </li>
-              <li class="card">
-                <a class="card__link" href="#site-footer">
-                  <span class="card__thumb"><img src="imges/img-dt/vlastshop-dt-1.png" alt="2026 생일 키트 상품"></span>
-                  <span class="card__body">
-                    <span class="card__name">상품명 영역</span>
-                    <span class="card__price">43,000원</span>
-                  </span>
-                </a>
-              </li>
-            </ul>
+            <nav class="catalog-subnav" aria-label="TOUR 하위 카테고리">
+              <div class="catalog-subnav__scroller" data-category-scroller>
+                <button class="catalog-subnav__button is-active" type="button" data-category-option="all" aria-pressed="true">전체</button>
+                <button class="catalog-subnav__button" type="button" data-category-option="1ST FANCON" aria-pressed="false">1ST FANCON</button>
+                <button class="catalog-subnav__button" type="button" data-category-option="1ST FANCON ENCORE" aria-pressed="false">1ST FANCON ENCORE</button>
+                <button class="catalog-subnav__button" type="button" data-category-option="2025 TOUR" aria-pressed="false">2025 TOUR</button>
+                <button class="catalog-subnav__button" type="button" data-category-option="2025 TOUR ENCORE" aria-pressed="false">2025 TOUR ENCORE</button>
+                <button class="catalog-subnav__button" type="button" data-category-option="2026 TOUR" aria-pressed="false">2026 TOUR</button>
+              </div>
+            </nav>
+            <div class="catalog__toolbar">
+              <div class="catalog__heading">
+                <h2 class="section-new__title" id="new-title">TOUR</h2>
+                <p class="catalog__count" data-items-count aria-live="polite">54 ITEMS</p>
+              </div>
+              <label class="catalog__sort">
+                <span>상품 정렬</span>
+                <select data-catalog-sort>
+                  <option value="default">- 정렬방식 -</option>
+                  <option value="name">상품명순</option>
+                  <option value="price-ascending">낮은 가격순</option>
+                  <option value="price-descending">높은 가격순</option>
+                </select>
+              </label>
+            </div>
+            <ul class="new__part" id="new-arrival-products" aria-label="TOUR 상품 목록" data-product-grid></ul>
+            <nav class="catalog-pagination" aria-label="상품 페이지" data-catalog-pagination>
+              <button class="catalog-pagination__arrow" type="button" aria-label="이전 페이지" data-page-previous disabled>
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6"></path></svg>
+              </button>
+              <ol class="catalog-pagination__pages" data-page-list></ol>
+              <button class="catalog-pagination__arrow" type="button" aria-label="다음 페이지" data-page-next>
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"></path></svg>
+              </button>
+            </nav>
           </div>
         </div>
       </section>
@@ -746,6 +742,13 @@
         link.className = "mobile-drawer__link";
         link.href = href;
         link.textContent = label;
+        const parent = drawerMenuItems.find((item) => item.children?.includes(label));
+        if (parent) {
+          link.dataset.catalogParent = parent.label;
+          link.dataset.catalogCategory = label;
+        } else if (["ALBUM", "MERCH", "TOUR", "SEASONAL"].includes(label)) {
+          link.dataset.catalogParent = label;
+        }
         return link;
       }
 
@@ -766,6 +769,7 @@
             button.type = "button";
             button.setAttribute("aria-expanded", "false");
             button.setAttribute("aria-controls", submenuId);
+            button.dataset.catalogParent = item.label;
 
             const label = document.createElement("span");
             label.textContent = item.label;

@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.0, minimum-scale=1.0, user-scalable=yes">
+    <meta name="theme-color" content="#ffffff">
+    <meta name="description" content="VLAST Shop 로그인 페이지입니다. 회원 로그인, 카카오 로그인, 비회원 주문조회를 이용할 수 있습니다.">
+    <title>로그인 | VLAST Shop</title>
+    <link rel="preload" href="assets/fonts/spoqa-han-sans-neo-regular.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="css/main.css">
+    <script type="module" src="js/modules/login.js"></script>
+  </head>
+  <body class="login-page">
+    <a class="skip-link" href="#main">본문 바로가기</a>
+
+    <header class="site-header">
+      <div class="inner-box">
+        <div class="header__part header__part--utility">
+          <a class="header__language" href="index.html" aria-label="언어 선택, 현재 한국어">
+            한국어 <span aria-hidden="true">⌄</span>
+          </a>
+          <nav class="header__utility-links" aria-label="회원 메뉴">
+            <a href="#signup">회원가입</a>
+            <a href="login.html" aria-current="page">로그인</a>
+            <a href="#guest-order">주문조회</a>
+            <a href="index.html#new-arrivals">최근본상품</a>
+          </nav>
+        </div>
+
+        <div class="header__part header__part--main">
+          <a class="header__logo" href="index.html" aria-label="VLAST Shop 홈">
+            <span>VLAST</span><span class="header__logo-shop">Shop</span>
+          </a>
+          <nav class="header__icons" aria-label="쇼핑 메뉴">
+            <a class="icon-link" href="index.html#search-view" aria-label="상품 검색">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <circle cx="10.8" cy="10.8" r="6.8"></circle>
+                <path d="m16 16 4.5 4.5"></path>
+              </svg>
+            </a>
+            <a class="icon-link" href="login.html" aria-label="로그인" aria-current="page">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <circle cx="12" cy="7.5" r="4"></circle>
+                <path d="M4.5 20c.5-4 3.1-6 7.5-6s7 2 7.5 6z"></path>
+              </svg>
+            </a>
+            <a class="icon-link" href="index.html#site-footer" aria-label="장바구니">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M5 8h14l1.2 12H3.8z"></path>
+                <path d="M9 9V6a3 3 0 0 1 6 0v3"></path>
+              </svg>
+            </a>
+          </nav>
+        </div>
+
+        <nav class="header__part header__part--navigation gnb" aria-label="카테고리 메뉴">
+          <a class="header__mobile-menu icon-link" href="index.html#category" aria-label="카테고리 메뉴로 이동">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M4 6h16M4 12h16M4 18h16"></path>
+            </svg>
+          </a>
+          <ul class="gnb__list">
+            <li class="gnb__mobile-logo-item">
+              <a class="gnb__mobile-logo" href="index.html" aria-label="VLAST Shop 홈"><span>VLAST</span><span>Shop</span></a>
+            </li>
+            <li class="gnb__category-item"><a href="index.html#new-arrivals">ALBUM</a></li>
+            <li class="gnb__category-item"><a href="index.html#new-arrivals">MERCH</a></li>
+            <li class="gnb__category-item"><a href="index.html#new-arrivals">TOUR</a></li>
+            <li class="gnb__category-item"><a href="index.html#new-arrivals">SEASONAL</a></li>
+            <li class="gnb__category-item"><a href="index.html#new-arrivals">ASTERUM 433-10</a></li>
+            <li class="gnb__category-item"><a href="index.html#site-footer">NOTICE</a></li>
+          </ul>
+          <a class="header__mobile-search icon-link" href="index.html#search-view" aria-label="상품 검색">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <circle cx="10.8" cy="10.8" r="6.8"></circle>
+              <path d="m16 16 4.5 4.5"></path>
+            </svg>
+          </a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="login-page__main" id="main">
+      <section class="login-primary" aria-labelledby="login-title">
+        <div class="inner-box">
+          <nav class="login__breadcrumb" aria-label="현재 위치">
+            <a href="index.html">홈</a>
+            <span aria-hidden="true">/</span>
+            <span aria-current="page">로그인</span>
+          </nav>
+          <div class="login__content">
+            <h1 class="login__title" id="login-title">로그인</h1>
+            <form class="login__form" data-login-form>
+              <div class="login__fields">
+                <div class="login__field">
+                  <label for="login-id">아이디</label>
+                  <input id="login-id" name="username" type="text" autocomplete="username" placeholder="아이디" required>
+                </div>
+                <div class="login__field">
+                  <label for="login-password">비밀번호</label>
+                  <input id="login-password" name="password" type="password" autocomplete="current-password" placeholder="비밀번호" required>
+                </div>
+              </div>
+              <label class="login__secure"><input type="checkbox" checked> <span>보안접속</span></label>
+              <button class="login__submit" type="submit">로그인</button>
+              <p class="login__status" role="status" aria-live="polite" data-login-status></p>
+            </form>
+            <div class="login__help-links" aria-label="계정 찾기">
+              <button type="button" data-login-action="아이디 찾기">아이디 찾기</button>
+              <span aria-hidden="true">|</span>
+              <button type="button" data-login-action="비밀번호 찾기">비밀번호 찾기</button>
+            </div>
+            <section class="login__signup" id="signup" aria-labelledby="signup-title" data-login-feedback>
+              <h2 id="signup-title">아직 회원이 아니신가요?</h2>
+              <p>지금 회원가입을 하시면<br>다양하고 특별한 혜택이 준비되어 있습니다.</p>
+              <button class="login__signup-button" type="button" data-login-action="회원가입">회원가입</button>
+              <p class="login__status" role="status" aria-live="polite" data-login-status></p>
+            </section>
+          </div>
+        </div>
+      </section>
+
+      <section class="login-secondary" aria-label="SNS 로그인 및 비회원 주문조회">
+        <div class="inner-box">
+          <div class="login__content login__content--secondary">
+            <section class="login__sns" aria-labelledby="sns-title" data-login-feedback>
+              <h2 id="sns-title">SNS 로그인</h2>
+              <button class="login__kakao" type="button" data-login-action="카카오 로그인">
+                <span class="login__kakao-mark" aria-hidden="true">
+                  <svg viewBox="0 0 24 24">
+                    <path d="M12 3.5c-5 0-9 3.2-9 7.1 0 2.5 1.8 4.7 4.5 6l-.9 3.7 4.3-2.8h1.1c5 0 9-3.1 9-6.9s-4-7.1-9-7.1z"></path>
+                  </svg>
+                </span>
+                <span>카카오 로그인</span>
+              </button>
+              <p class="login__status" role="status" aria-live="polite" data-login-status></p>
+            </section>
+
+            <section class="login__guest" id="guest-order" aria-labelledby="guest-title">
+              <h2 id="guest-title">비회원 주문조회</h2>
+              <p class="login__guest-note">비회원의 경우, 주문시의 주문번호로 주문조회가 가능합니다.</p>
+              <form class="login__form" data-guest-order-form>
+                <div class="login__fields">
+                  <div class="login__field">
+                    <label for="guest-name">주문자명</label>
+                    <input id="guest-name" name="guest-name" type="text" autocomplete="name" placeholder="주문자명" required>
+                  </div>
+                  <div class="login__field">
+                    <label for="guest-order-number">주문번호</label>
+                    <input id="guest-order-number" name="order-number" type="text" placeholder="주문번호(하이픈(-) 포함)" required>
+                  </div>
+                  <div class="login__field">
+                    <label for="guest-order-password">비회원주문 비밀번호</label>
+                    <input id="guest-order-password" name="order-password" type="password" autocomplete="current-password" placeholder="비회원주문 비밀번호" required>
+                  </div>
+                </div>
+                <button class="login__submit" type="submit">확인</button>
+                <p class="login__status" role="status" aria-live="polite" data-login-status></p>
+              </form>
+            </section>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <nav class="bottom-nav" aria-label="모바일 하단 메뉴">
+      <ul class="bottom-nav__list">
+        <li><a href="index.html#category" aria-label="카테고리"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"></path></svg><span>카테고리</span></a></li>
+        <li><a href="index.html#search-view" aria-label="검색"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8"></circle><path d="m16 16 4.5 4.5"></path></svg><span>검색</span></a></li>
+        <li><a href="index.html#main" aria-label="홈"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 10 9-7 9 7v10H3z"></path><path d="M9 20v-6h6v6"></path></svg><span>홈</span></a></li>
+        <li><a href="index.html#site-footer" aria-label="장바구니"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 8h14l1.2 12H3.8z"></path><path d="M9 9V6a3 3 0 0 1 6 0v3"></path></svg><span>장바구니</span></a></li>
+        <li><a href="login.html" aria-current="page" aria-label="마이페이지"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="7.5" r="4"></circle><path d="M4.5 20c.5-4 3.1-6 7.5-6s7 2 7.5 6z"></path></svg><span>마이</span></a></li>
+      </ul>
+    </nav>
+
+    <nav class="floating-ui" aria-label="바로가기">
+      <a class="floating-ui__button" href="#main" aria-label="맨 위로">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M6 11l6-6 6 6"></path></svg>
+      </a>
+      <a class="floating-ui__button" href="#site-footer" aria-label="고객센터">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5.5h16v11H9l-5 3z"></path><path d="M8 10h8M8 13h5"></path></svg>
+      </a>
+    </nav>
+
+    <footer class="site-footer" id="site-footer">
+      <div class="inner-box">
+        <div class="login__footer">
+          <a class="login__footer-logo" href="index.html" aria-label="VLAST Shop 홈"><span>VLAST</span><span>Shop</span></a>
+          <nav aria-label="회사 정보">
+            <a href="#site-footer">회사소개</a>
+            <a href="#site-footer">이용약관</a>
+            <a href="#site-footer">개인정보처리방침</a>
+            <a href="#site-footer">이용안내</a>
+          </nav>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

@@ -1,7 +1,7 @@
 :root {
   --inner-max: 120rem;
   --inner-content-max: 80rem; /* MEASURE */
-  --inner-content-ratio: 66.6667%; /* MEASURE */
+  --inner-content-ratio: 100%; /* MEASURE */
   --inner-gutter: 1rem; /* PROVISIONAL */
   --toparea-h: 2rem; /* PROVISIONAL */
   --header-main-h: 5rem; /* PROVISIONAL */
@@ -97,10 +97,21 @@
 
   --section-new-pt: 5rem; /* PROVISIONAL */
   --section-new-mb: 7.5rem;
+  --login-content-max: 24rem; /* PROVISIONAL */
+  --login-title-size: 1.75rem; /* MEASURE */
+  --login-field-height: 2.75rem; /* PROVISIONAL */
+  --login-button-height: 3.25rem; /* PROVISIONAL */
+  --login-panel-min-height: 13.75rem; /* MEASURE */
+  --login-panel-padding: 2rem; /* PROVISIONAL */
+  --login-section-gap: 3rem; /* PROVISIONAL */
+  --login-kakao-background: #fee500; /* MEASURE */
+  --login-kakao-width: 12rem; /* MEASURE */
+  --login-signup-button-width: 9rem; /* PROVISIONAL */
   --section-title-size: 1.5rem; /* MEASURE */
   --section-title-gap: 1rem; /* PROVISIONAL */
   --content-gap: 1.5rem; /* PROVISIONAL */
   --cols-card: 2;
+  --cols-card-tablet: 3;
   --cols-card-pc: 4;
   --card-ratio: 1 / 1; /* PROVISIONAL */
   --card-image-background: #f2f2f2; /* MEASURE */
@@ -146,7 +157,13 @@
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-@media (min-width: 769px) {
+@media (min-width: 769px) and (max-width: 1023px) {
+  :root {
+    --cols-card: var(--cols-card-tablet);
+  }
+}
+
+@media (min-width: 1024px) {
   :root {
     --inner-gutter: 2.5rem; /* PROVISIONAL */
     --cols-card: var(--cols-card-pc);
