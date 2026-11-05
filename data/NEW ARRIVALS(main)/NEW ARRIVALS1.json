@@ -1,0 +1,74 @@
+[
+  {
+    "id": 502,
+    "name": "STAR TRACE PHOTOCARD  PACK",
+    "price": 7000,
+    "price_formatted": "7,000원",
+    "is_soldout": true,
+    "product_url": "/product/star-trace-photocard-pack/502/category/1/display/3/?icid=MAIN.product_listmain_2",
+    "image_url": "https://vlastshop.com/web/product/medium/202611/ec245ea7778eed02cbbe3cc432726296.jpg"
+  },
+  {
+    "id": 501,
+    "name": "STAR TRACE ACRYLIC STAND",
+    "price": 18000,
+    "price_formatted": "18,000원",
+    "is_soldout": true,
+    "product_url": "/product/star-trace-acrylic-stand/501/category/1/display/3/?icid=MAIN.product_listmain_2",
+    "image_url": "https://vlastshop.com/web/product/medium/202611/ca4527ad847ae1651c04ace91c7efa9f.jpg"
+  },
+  {
+    "id": 500,
+    "name": "STAR TRACE TRADING CAN BADGE_RANDOM",
+    "price": 5000,
+    "price_formatted": "5,000원",
+    "is_soldout": true,
+    "product_url": "/product/star-trace-trading-can-badgerandom/500/category/1/display/3/?icid=MAIN.product_listmain_2",
+    "image_url": "https://vlastshop.com/web/product/medium/202611/d8a16542126ba4e0c06d9e01d88edfce.jpg"
+  },
+  {
+    "id": 499,
+    "name": "STAR TRACE TRADING MINIATURE KEYRING_RANDOM",
+    "price": 9000,
+    "price_formatted": "9,000원",
+    "is_soldout": true,
+    "product_url": "/product/star-trace-trading-miniature-keyringrandom/499/category/1/display/3/?icid=MAIN.product_listmain_2",
+    "image_url": "https://vlastshop.com/web/product/medium/202611/3f0fc69529664ab6f69d2c550c91db32.jpg"
+  },
+  {
+    "id": 498,
+    "name": "STAR TRACE STICKER PACK",
+    "price": 9000,
+    "price_formatted": "9,000원",
+    "is_soldout": true,
+    "product_url": "/product/star-trace-sticker-pack/498/category/1/display/3/?icid=MAIN.product_listmain_2",
+    "image_url": "https://vlastshop.com/web/product/medium/202611/5d0232c8a85d8a266eed506926d91e03.jpg"
+  },
+  {
+    "id": 497,
+    "name": "STAR TRACE IN-EAR EARPHONES",
+    "price": 65000,
+    "price_formatted": "65,000원",
+    "is_soldout": true,
+    "product_url": "/product/star-trace-in-ear-earphones/497/category/1/display/3/?icid=MAIN.product_listmain_2",
+    "image_url": "https://vlastshop.com/web/product/medium/202611/9c6e47f5dbfc59d1181166d4cfd01d12.jpg"
+  },
+  {
+    "id": 496,
+    "name": "STAR TRACE BALL CAP POUCH KEYRING",
+    "price": 17000,
+    "price_formatted": "17,000원",
+    "is_soldout": true,
+    "product_url": "/product/star-trace-ball-cap-pouch-keyring/496/category/1/display/3/?icid=MAIN.product_listmain_2",
+    "image_url": "https://vlastshop.com/web/product/medium/202611/94dfe338699b03acbd00bff5cc1832ab.jpg"
+  },
+  {
+    "id": 483,
+    "name": "STAR TRACE CLICKER KEYRING",
+    "price": 19500,
+    "price_formatted": "19,500원",
+    "is_soldout": true,
+    "product_url": "/product/star-trace-clicker-keyring/483/category/1/display/3/?icid=MAIN.product_listmain_2",
+    "image_url": "https://vlastshop.com/web/product/medium/202611/2b7fa79218c727260ed9e5777b646e17.jpg"
+  }
+]

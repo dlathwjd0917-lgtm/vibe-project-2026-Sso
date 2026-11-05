@@ -44,7 +44,7 @@
                 <path d="M4.5 20c.5-4 3.1-6 7.5-6s7 2 7.5 6z"></path>
               </svg>
             </a>
-            <a class="icon-link" href="index.html#site-footer" aria-label="장바구니">
+            <a class="icon-link cart-icon-wrap" href="cart.html" aria-label="장바구니" data-cart-link>
               <svg viewBox="0 0 24 24" aria-hidden="true">
                 <path d="M5 8h14l1.2 12H3.8z"></path>
                 <path d="M9 9V6a3 3 0 0 1 6 0v3"></path>
@@ -68,7 +68,7 @@
             <li class="gnb__category-item"><a href="index.html#new-arrivals">TOUR</a></li>
             <li class="gnb__category-item"><a href="index.html#new-arrivals">SEASONAL</a></li>
             <li class="gnb__category-item"><a href="index.html#new-arrivals">ASTERUM 433-10</a></li>
-            <li class="gnb__category-item"><a href="index.html#site-footer">NOTICE</a></li>
+            <li class="gnb__category-item"><a href="notice.html">NOTICE</a></li>
           </ul>
           <a class="header__mobile-search icon-link" href="index.html#search-view" aria-label="상품 검색">
             <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -168,7 +168,7 @@
         <li><a href="index.html#category" aria-label="카테고리"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"></path></svg><span>카테고리</span></a></li>
         <li><a href="index.html#search-view" aria-label="검색"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8"></circle><path d="m16 16 4.5 4.5"></path></svg><span>검색</span></a></li>
         <li><a href="index.html#main" aria-label="홈"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 10 9-7 9 7v10H3z"></path><path d="M9 20v-6h6v6"></path></svg><span>홈</span></a></li>
-        <li><a href="index.html#site-footer" aria-label="장바구니"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 8h14l1.2 12H3.8z"></path><path d="M9 9V6a3 3 0 0 1 6 0v3"></path></svg><span>장바구니</span></a></li>
+        <li><a class="cart-icon-wrap" href="cart.html" aria-label="장바구니" data-cart-link><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 8h14l1.2 12H3.8z"></path><path d="M9 9V6a3 3 0 0 1 6 0v3"></path></svg><span>장바구니</span></a></li>
         <li><a href="login.html" aria-current="page" aria-label="마이페이지"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="7.5" r="4"></circle><path d="M4.5 20c.5-4 3.1-6 7.5-6s7 2 7.5 6z"></path></svg><span>마이</span></a></li>
       </ul>
     </nav>
@@ -195,5 +195,9 @@
         </div>
       </div>
     </footer>
+    <script type="module">
+      import { initCartBadge } from "./js/components/cartBadge.js";
+      initCartBadge();
+    </script>
   </body>
 </html>

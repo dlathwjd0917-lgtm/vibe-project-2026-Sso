@@ -434,7 +434,7 @@
                 <path d="M4.5 20c.5-4 3.1-6 7.5-6s7 2 7.5 6z"></path>
               </svg>
             </a>
-            <a class="icon-link" href="#site-footer" aria-label="장바구니">
+            <a class="icon-link cart-icon-wrap" href="cart.html" aria-label="장바구니" data-cart-link>
               <svg viewBox="0 0 24 24" aria-hidden="true">
                 <path d="M5 8h14l1.2 12H3.8z"></path>
                 <path d="M9 9V6a3 3 0 0 1 6 0v3"></path>
@@ -453,12 +453,12 @@
           <li class="gnb__mobile-logo-item">
             <a class="gnb__mobile-logo" href="#main" aria-label="VLAST Shop 홈"><span>VLAST</span><span>Shop</span></a>
           </li>
-          <li class="gnb__category-item"><a href="#new-arrivals">ALBUM</a></li>
-          <li class="gnb__category-item"><a href="#new-arrivals">MERCH</a></li>
-          <li class="gnb__category-item"><a href="#new-arrivals">TOUR</a></li>
-          <li class="gnb__category-item"><a href="#new-arrivals">SEASONAL</a></li>
-          <li class="gnb__category-item"><a href="#new-arrivals">ASTERUM 433-10</a></li>
-          <li class="gnb__category-item"><a href="#site-footer">NOTICE</a></li>
+          <li class="gnb__category-item"><a href="#new-arrivals" data-catalog-parent="ALBUM">ALBUM</a></li>
+          <li class="gnb__category-item"><a href="#new-arrivals" data-catalog-parent="MERCH">MERCH</a></li>
+          <li class="gnb__category-item"><a href="#new-arrivals" data-catalog-parent="TOUR">TOUR</a></li>
+          <li class="gnb__category-item"><a href="#new-arrivals" data-catalog-parent="SEASONAL">SEASONAL</a></li>
+          <li class="gnb__category-item"><a href="#new-arrivals" data-catalog-parent="ASTERUM 433-10">ASTERUM 433-10</a></li>
+          <li class="gnb__category-item"><a href="notice.html">NOTICE</a></li>
         </ul>
         <a class="header__mobile-search icon-link" href="#search-view" aria-label="상품 검색" aria-controls="search-view"
           aria-expanded="false" data-search-open>
@@ -504,7 +504,7 @@
               <span>고객센터</span><span class="mobile-drawer__toggle-icon" aria-hidden="true"></span>
             </button>
             <ul class="mobile-drawer__submenu" id="drawer-customer-links" hidden>
-              <li><a href="#site-footer">NOTICE</a></li>
+              <li><a href="notice.html">NOTICE</a></li>
               <li>
                 <div class="mobile-drawer__language">
                   <label for="drawer-language">언어 선택</label>
@@ -657,7 +657,7 @@
                 </a>
               </li>
               <li>
-                <a class="bottom-nav__link" href="#site-footer" aria-label="장바구니">
+                <a class="bottom-nav__link cart-icon-wrap" href="cart.html" aria-label="장바구니" data-cart-link>
                   <svg viewBox="0 0 24 24" aria-hidden="true">
                     <path d="M6 8h12l1.2 12H4.8z"></path>
                     <path d="M9 8V5.5a3 3 0 0 1 6 0V8"></path>
@@ -683,27 +683,14 @@
     <section class="section-new" id="new-arrivals" aria-labelledby="new-title">
       <div class="inner-box">
         <div class="new__content">
-          <nav class="catalog-subnav" aria-label="TOUR 하위 카테고리">
-            <div class="catalog-subnav__scroller" data-category-scroller>
-              <button class="catalog-subnav__button" type="button" data-category-option="all"
-                aria-pressed="false">전체</button>
-              <button class="catalog-subnav__button is-active" type="button" data-category-option="1ST FANCON"
-                aria-pressed="true">1ST FANCON</button>
-              <button class="catalog-subnav__button" type="button" data-category-option="1ST FANCON ENCORE"
-                aria-pressed="false">1ST FANCON ENCORE</button>
-              <button class="catalog-subnav__button" type="button" data-category-option="2025 TOUR"
-                aria-pressed="false">2025 TOUR</button>
-              <button class="catalog-subnav__button" type="button" data-category-option="2025 TOUR ENCORE"
-                aria-pressed="false">2025 TOUR ENCORE</button>
-              <button class="catalog-subnav__button" type="button" data-category-option="2026 TOUR"
-                aria-pressed="false">2026 TOUR</button>
-            </div>
+          <nav class="catalog-subnav" aria-label="하위 카테고리" data-catalog-subnav style="display: none;">
+            <div class="catalog-subnav__scroller" data-category-scroller></div>
           </nav>
-          <div class="catalog__toolbar">
-            <div class="catalog__heading">
-              <h2 class="section-new__title" id="new-title">TOUR</h2>
-              <p class="catalog__count" data-items-count aria-live="polite">상품 데이터를 불러오는 중입니다.</p>
-            </div>
+          <div class="catalog__heading-box">
+            <h2 class="section-new__title" id="new-title">NEW ARRIVALS</h2>
+          </div>
+          <div class="catalog__toolbar" data-catalog-toolbar style="display: none;">
+            <p class="catalog__count" data-items-count aria-live="polite">상품 데이터를 불러오는 중입니다.</p>
             <label class="catalog__sort">
               <span>상품 정렬</span>
               <select data-catalog-sort>
@@ -714,8 +701,11 @@
               </select>
             </label>
           </div>
-          <ul class="new__part" id="new-arrival-products" aria-label="TOUR 상품 목록" data-product-grid></ul>
-          <nav class="catalog-pagination" aria-label="상품 페이지" data-catalog-pagination>
+          <ul class="new__part" id="new-arrival-products" aria-label="NEW ARRIVALS 상품 목록" data-product-grid></ul>
+          <div class="catalog-more-wrap" data-catalog-more-wrap>
+            <button class="catalog-more-btn" type="button" data-catalog-more>상품 더보기(1/10)</button>
+          </div>
+          <nav class="catalog-pagination" aria-label="상품 페이지" data-catalog-pagination style="display: none;">
             <button class="catalog-pagination__arrow" type="button" aria-label="이전 페이지" data-page-previous disabled>
               <svg viewBox="0 0 24 24" aria-hidden="true">
                 <path d="m15 18-6-6 6-6"></path>
@@ -829,7 +819,7 @@
       { label: "TOUR", href: "#new-arrivals", children: ["1ST FANCON", "1ST FANCON ENCORE", "2025 TOUR", "2025 TOUR ENCORE", "2026 TOUR"] },
       { label: "SEASONAL", href: "#new-arrivals", children: ["SEASON'S GREETINGS", "BIRTHDAY KIT"] },
       { label: "ASTERUM 433-10", href: "#new-arrivals" },
-      { label: "NOTICE", href: "#site-footer" }
+      { label: "NOTICE", href: "notice.html" }
     ];
 
     const drawer = document.querySelector("[data-drawer]");
@@ -853,7 +843,7 @@
       if (parent) {
         link.dataset.catalogParent = parent.label;
         link.dataset.catalogCategory = label;
-      } else if (["ALBUM", "MERCH", "TOUR", "SEASONAL"].includes(label)) {
+      } else if (["ALBUM", "MERCH", "TOUR", "SEASONAL", "ASTERUM 433-10"].includes(label)) {
         link.dataset.catalogParent = label;
       }
       return link;
@@ -1007,6 +997,12 @@
       event.preventDefault();
       window.scrollTo({ top: 0, behavior: "smooth" });
     });
+  </script>
+
+  <!-- 상단 공지사항 롤링 배너 초기화 -->
+  <script type="module">
+    import { initTopNoticeBar } from "./js/components/topNoticeBar.js";
+    initTopNoticeBar();
   </script>
 </body>
 

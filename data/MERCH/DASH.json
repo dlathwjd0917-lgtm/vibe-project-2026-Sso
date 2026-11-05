@@ -1,0 +1,38 @@
+[
+  {
+    "id": 164,
+    "name": "DASH PHOTOCARD PACK",
+    "price": 7000,
+    "price_formatted": "7,000원",
+    "is_soldout": true,
+    "product_url": "/product/dash-photocard-pack/164/category/74/display/1/",
+    "image_url": "https://vlastshop.com/web/product/medium/202503/85354b3e3c0806ff4aab729453c87e8f.jpg"
+  },
+  {
+    "id": 163,
+    "name": "DASH TRADING CAN BADGE(10종 중 랜덤발송)",
+    "price": 5000,
+    "price_formatted": "5,000원",
+    "is_soldout": false,
+    "product_url": "/product/dash-trading-can-badge10종-중-랜덤발송/163/category/74/display/1/",
+    "image_url": "https://vlastshop.com/web/product/medium/202503/ee669c5fde0548aced90e69ddac9b9dd.jpg"
+  },
+  {
+    "id": 162,
+    "name": "DASH PERFUME BALL SACHET SET",
+    "price": 18000,
+    "price_formatted": "18,000원",
+    "is_soldout": true,
+    "product_url": "/product/dash-perfume-ball-sachet-set/162/category/74/display/1/",
+    "image_url": "https://vlastshop.com/web/product/medium/202503/dc2c50a94efa2914e612a076fe464bcb.jpg"
+  },
+  {
+    "id": 161,
+    "name": "DASH ACRYLIC STAND",
+    "price": 18000,
+    "price_formatted": "18,000원",
+    "is_soldout": false,
+    "product_url": "/product/dash-acrylic-stand/161/category/74/display/1/",
+    "image_url": "https://vlastshop.com/web/product/medium/202503/d03365970e78543f7f3fb7a27b7c4f62.jpg"
+  }
+]

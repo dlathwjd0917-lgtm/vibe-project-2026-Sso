@@ -1,0 +1,38 @@
+[
+  {
+    "id": 419,
+    "name": "PLAVE: The Children of ASTERUM",
+    "price": 73000,
+    "price_formatted": "73,000원",
+    "is_soldout": true,
+    "product_url": "/product/plave-the-children-of-asterum/419/category/56/display/1/",
+    "image_url": "https://vlastshop.com/web/product/medium/202607/f7dda904b80c349ffe89af28f84a9385.jpg"
+  },
+  {
+    "id": 294,
+    "name": "논중화물 VOL.3",
+    "price": 14000,
+    "price_formatted": "14,000원",
+    "is_soldout": true,
+    "product_url": "/product/논중화물-vol3/294/category/56/display/1/",
+    "image_url": "https://vlastshop.com/web/product/medium/202602/8abe1a4f9368a8a6c99d4c1c747b7ea2.jpg"
+  },
+  {
+    "id": 172,
+    "name": "논중화물 VOL.2",
+    "price": 14000,
+    "price_formatted": "14,000원",
+    "is_soldout": true,
+    "product_url": "/product/논중화물-vol2/172/category/56/display/1/",
+    "image_url": "https://vlastshop.com/web/product/medium/202503/c0936703910fd9d3c781c697fc8cfa1f.jpg"
+  },
+  {
+    "id": 99,
+    "name": "논중화물 VOL.1",
+    "price": 14000,
+    "price_formatted": "14,000원",
+    "is_soldout": true,
+    "product_url": "/product/논중화물-vol1/99/category/56/display/1/",
+    "image_url": "https://vlastshop.com/web/product/medium/202407/81387d0486636e88b0914d3dd07cca27.jpg"
+  }
+]

@@ -1,0 +1,56 @@
+[
+  {
+    "id": 219,
+    "name": "KAKURENBO TRADING MINI KEYRING_RANDOM",
+    "price": 6500,
+    "price_formatted": "6,500원",
+    "is_soldout": true,
+    "product_url": "/product/kakurenbo-trading-mini-keyringrandom/219/category/75/display/1/",
+    "image_url": "https://vlastshop.com/web/product/medium/202507/b6fa406a977d835eab112021d308bd75.png"
+  },
+  {
+    "id": 218,
+    "name": "KAKURENBO STRAP KEYRING",
+    "price": 25000,
+    "price_formatted": "25,000원",
+    "is_soldout": true,
+    "product_url": "/product/kakurenbo-strap-keyring/218/category/75/display/1/",
+    "image_url": "https://vlastshop.com/web/product/medium/202507/26f25aef48f29ffb4bf586e120283b34.png"
+  },
+  {
+    "id": 217,
+    "name": "KAKURENBO PHOTO CARD HOLDER",
+    "price": 22000,
+    "price_formatted": "22,000원",
+    "is_soldout": true,
+    "product_url": "/product/kakurenbo-photo-card-holder/217/category/75/display/1/",
+    "image_url": "https://vlastshop.com/web/product/medium/202507/a8a069d3838bf7715b8ba49886cad016.png"
+  },
+  {
+    "id": 216,
+    "name": "KAKURENBO TRADING CAN BADGE_RANDOM",
+    "price": 8000,
+    "price_formatted": "8,000원",
+    "is_soldout": true,
+    "product_url": "/product/kakurenbo-trading-can-badgerandom/216/category/75/display/1/",
+    "image_url": "https://vlastshop.com/web/product/medium/202507/0d8a3de4831d4717089f0dbd2e0ec49e.png"
+  },
+  {
+    "id": 215,
+    "name": "KAKURENBO ACRYLIC STAND",
+    "price": 22000,
+    "price_formatted": "22,000원",
+    "is_soldout": false,
+    "product_url": "/product/kakurenbo-acrylic-stand/215/category/75/display/1/",
+    "image_url": "https://vlastshop.com/web/product/medium/202507/34e24f619a6da8fe0ac2d7de0f850173.png"
+  },
+  {
+    "id": 214,
+    "name": "KAKURENBO INSTANT PHOTO CARD SET",
+    "price": 12000,
+    "price_formatted": "12,000원",
+    "is_soldout": true,
+    "product_url": "/product/kakurenbo-instant-photo-card-set/214/category/75/display/1/",
+    "image_url": "https://vlastshop.com/web/product/medium/202507/bbc8060021975fbbaa0bbfc868cc7b55.png"
+  }
+]

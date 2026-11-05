@@ -1,0 +1,29 @@
+[
+  {
+    "id": 107,
+    "name": "PUTV RINGER T-SHIRT",
+    "price": 39000,
+    "price_formatted": "39,000원",
+    "is_soldout": true,
+    "product_url": "/product/putv-ringer-t-shirt/107/category/60/display/1/",
+    "image_url": "https://vlastshop.com/web/product/medium/202409/104a778c0bb26b1df53885086a74980a.jpg"
+  },
+  {
+    "id": 108,
+    "name": "PUTV STICKER PACK",
+    "price": 10000,
+    "price_formatted": "10,000원",
+    "is_soldout": true,
+    "product_url": "/product/putv-sticker-pack/108/category/60/display/1/",
+    "image_url": "https://vlastshop.com/web/product/medium/202409/f361b681f3dfc1b6c168eb8db94ab50a.jpg"
+  },
+  {
+    "id": 109,
+    "name": "PUTV PHOTOCARD PACK",
+    "price": 7000,
+    "price_formatted": "7,000원",
+    "is_soldout": true,
+    "product_url": "/product/putv-photocard-pack/109/category/60/display/1/",
+    "image_url": "https://vlastshop.com/web/product/medium/202409/f1e71d2e0c63a4c6b1d76c4337a6f17d.jpg"
+  }
+]
