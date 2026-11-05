@@ -1,0 +1,29 @@
+[
+  {
+    "id": 291,
+    "name": "2026 SEASON'S GREETINGS",
+    "price": 45000,
+    "price_formatted": "45,000원",
+    "is_soldout": true,
+    "product_url": "/product/2026-seasons-greetings/291/category/57/display/1/",
+    "image_url": "https://vlastshop.com/web/product/medium/202512/d0c1fa20fa8a264d9bb060b79fc01f7f.jpg"
+  },
+  {
+    "id": 134,
+    "name": "2025 SEASON'S GREETINGS",
+    "price": 45000,
+    "price_formatted": "45,000원",
+    "is_soldout": true,
+    "product_url": "/product/2025-seasons-greetings/134/category/57/display/1/",
+    "image_url": "https://vlastshop.com/web/product/medium/202412/b6725733edea48c182a0c793e9e3f18e.png"
+  },
+  {
+    "id": 40,
+    "name": "2024 SEASON'S GREETINGS",
+    "price": 45000,
+    "price_formatted": "45,000원",
+    "is_soldout": true,
+    "product_url": "/product/2024-seasons-greetings/40/category/57/display/1/",
+    "image_url": "https://vlastshop.com/web/product/medium/202312/c5d90d0ab411003c8e2c5b7bcc2ad7a0.jpg"
+  }
+]

@@ -35,6 +35,10 @@
   max-width: 52rem;
 }
 
+.badge-hanteo__text{
+   text-align: left;
+}
+
 /* 푸터 로고 */
 .footer__logo {
   display: inline-flex;
