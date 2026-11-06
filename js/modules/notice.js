@@ -5,6 +5,7 @@
  */
 
 import { noticeService } from '../services/noticeService.js';
+import { authService } from '../services/authService.js';
 
 // 게시판 상태 관리
 const state = {
@@ -251,9 +252,11 @@ async function renderListView() {
       </div>
 
       <div class="board-toolbar__right">
+        ${authService.isAdmin() ? `
         <button class="board-toolbar__write-btn" type="button" id="go-write-btn">
           글쓰기 &gt;
         </button>
+        ` : ''}
       </div>
     </div>
 
@@ -490,12 +493,14 @@ async function renderDetailView(id) {
       <button class="btn-secondary" type="button" id="detail-list-btn">
         ≡ 목록으로
       </button>
+      ${authService.isAdmin() ? `
       <button class="btn-secondary" type="button" id="detail-edit-btn">
         수정
       </button>
       <button class="btn-danger" type="button" id="detail-delete-btn">
         삭제
       </button>
+      ` : ''}
     </div>
   `;
 
@@ -1028,13 +1033,15 @@ function setupFormEditorAndFiles(prefix) {
 
     try {
       if (prefix === 'write') {
+        const currentUser = authService.getCurrentUser();
+        const author = currentUser ? currentUser.name : '뚝스';
         const newNotice = await noticeService.create({
           title,
           category,
           isNotice,
           isNew: true,
           content: contentHtml,
-          author: 'VLAST',
+          author,
           attachments: state.tempAttachments.map(att => ({
             id: att.id,
             name: att.name,
@@ -1117,12 +1124,28 @@ export function initNoticeBoard(mountElement) {
 
 function route() {
   window.scrollTo({ top: 0, behavior: 'instant' });
-  if (state.mode === 'view' && state.currentId) {
-    renderDetailView(state.currentId);
-  } else if (state.mode === 'write') {
+  const isAdmin = authService.isAdmin();
+
+  if (state.mode === 'write') {
+    if (!isAdmin) {
+      alert('공지사항 글쓰기 권한이 없습니다. 관리자(admin) 계정으로 로그인해 주세요.');
+      state.mode = 'list';
+      updateUrl(true);
+      renderListView();
+      return;
+    }
     renderWriteView();
   } else if (state.mode === 'edit' && state.currentId) {
+    if (!isAdmin) {
+      alert('공지사항 수정 권한이 없습니다. 관리자(admin) 계정으로 로그인해 주세요.');
+      state.mode = 'view';
+      updateUrl(true);
+      renderDetailView(state.currentId);
+      return;
+    }
     renderEditView(state.currentId);
+  } else if (state.mode === 'view' && state.currentId) {
+    renderDetailView(state.currentId);
   } else {
     state.mode = 'list';
     renderListView();

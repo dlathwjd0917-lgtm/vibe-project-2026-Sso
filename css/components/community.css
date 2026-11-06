@@ -1,0 +1,442 @@
+/* ==========================================================================
+   Community Board Component (커뮤니티 / 답변형 Q&A 게시판 스타일)
+   - 목록 / 상세 / 글쓰기 / 글수정 4개 화면 지원
+   - VLAST 핑크(#e0245e) 테마와 Notice 디자인 일관성 유지
+   - 질문유형 6종, 비공개 라벨, 답변완료/대기 뱃지, 관리자 답변 섹션, 이모티콘 3종 반응 지원
+   ========================================================================== */
+
+.community-page {
+  padding-block-start: calc(var(--header-fixed-height, 10.5rem) + 2rem);
+  padding-block-end: 5rem;
+  background-color: #ffffff;
+  min-height: 60vh;
+}
+
+.community-container {
+  width: 100%;
+  max-width: var(--inner-max, 1200px);
+  margin-inline: auto;
+  padding-inline: var(--inner-gutter, 1.5rem);
+}
+
+/* --------------------------------------------------------------------------
+   카테고리 탭 (질문 유형 필터)
+   -------------------------------------------------------------------------- */
+.community-category-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #eeeeee;
+}
+
+.community-tab-btn {
+  padding: 0.5rem 1rem;
+  border-radius: 9999px;
+  border: 1px solid #e2e8f0;
+  background-color: #ffffff;
+  color: #64748b;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.community-tab-btn:hover {
+  border-color: #e0245e;
+  color: #e0245e;
+}
+
+.community-tab-btn.is-active {
+  background-color: #e0245e;
+  border-color: #e0245e;
+  color: #ffffff;
+  font-weight: 700;
+  box-shadow: 0 2px 6px rgba(224, 36, 94, 0.25);
+}
+
+/* --------------------------------------------------------------------------
+   뱃지 스타일 (질문유형, 답변상태, 비공개)
+   -------------------------------------------------------------------------- */
+.community-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.2rem 0.55rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  border-radius: 4px;
+  line-height: 1.2;
+}
+
+/* 카테고리 뱃지 */
+.community-badge--category {
+  background-color: #f1f5f9;
+  color: #475569;
+  border: 1px solid #e2e8f0;
+}
+
+/* 답변 상태 뱃지 */
+.community-badge--waiting {
+  background-color: #f8fafc;
+  color: #94a3b8;
+  border: 1px solid #e2e8f0;
+}
+
+.community-badge--answered {
+  background-color: #fdf2f8;
+  color: #e0245e;
+  border: 1px solid #fbcfe8;
+  font-weight: 700;
+}
+
+/* 비공개 뱃지 */
+.community-badge--secret {
+  background-color: #fff1f2;
+  color: #e11d48;
+  border: 1px solid #fecdd3;
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 0.15rem 0.45rem;
+  margin-top: 0.25rem;
+  display: inline-flex;
+  width: fit-content;
+}
+
+/* --------------------------------------------------------------------------
+   목록 제목 및 서브정보 영역
+   -------------------------------------------------------------------------- */
+.community-title-cell {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.2rem;
+}
+
+.community-title-link {
+  color: #222222;
+  text-decoration: none;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: color 0.15s ease;
+}
+
+.community-title-link:hover {
+  color: #e0245e;
+  text-decoration: underline;
+}
+
+.community-title-secret-note {
+  font-size: 0.72rem;
+  color: #e11d48;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+/* --------------------------------------------------------------------------
+   상세 뷰: 본문 및 잠금 화면
+   -------------------------------------------------------------------------- */
+.community-detail-meta-box {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.community-secret-alert {
+  background: #fff8f8;
+  border: 1px dashed #fca5a5;
+  border-radius: 8px;
+  padding: 1rem 1.25rem;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: #991b1b;
+  font-size: 0.875rem;
+}
+
+.community-locked-box {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 4rem 2rem;
+  text-align: center;
+  margin-block: 2rem;
+}
+
+.community-locked-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.community-locked-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin-bottom: 0.5rem;
+}
+
+.community-locked-desc {
+  font-size: 0.9rem;
+  color: #64748b;
+  margin-bottom: 1.5rem;
+}
+
+/* --------------------------------------------------------------------------
+   이모티콘 반응 3종 바 (웃음, 슬픔, 좋아요)
+   -------------------------------------------------------------------------- */
+.community-reaction-section {
+  margin-top: 2.5rem;
+  padding-top: 2rem;
+  border-top: 1px solid #e2e8f0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.community-reaction-heading {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #64748b;
+  letter-spacing: -0.01em;
+}
+
+.community-reaction-buttons {
+  display: flex;
+  gap: 1rem;
+}
+
+.reaction-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.65rem 1.25rem;
+  border-radius: 9999px;
+  border: 1.5px solid #e2e8f0;
+  background-color: #ffffff;
+  cursor: pointer;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #334155;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  user-select: none;
+}
+
+.reaction-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+}
+
+.reaction-btn--smile:hover,
+.reaction-btn--smile.is-reacted {
+  border-color: #f59e0b;
+  background-color: #fffbeb;
+  color: #d97706;
+}
+
+.reaction-btn--sad:hover,
+.reaction-btn--sad.is-reacted {
+  border-color: #3b82f6;
+  background-color: #eff6ff;
+  color: #2563eb;
+}
+
+.reaction-btn--like:hover,
+.reaction-btn--like.is-reacted {
+  border-color: #e0245e;
+  background-color: #fdf2f8;
+  color: #e0245e;
+}
+
+.reaction-btn__icon {
+  font-size: 1.25rem;
+  line-height: 1;
+}
+
+.reaction-btn__count {
+  font-size: 0.85rem;
+  font-weight: 700;
+  min-width: 1rem;
+  text-align: center;
+}
+
+/* --------------------------------------------------------------------------
+   관리자 답변 섹션 (질문글 바로 아래)
+   -------------------------------------------------------------------------- */
+.community-answer-card {
+  margin-top: 3rem;
+  background: #fafafa;
+  border: 1.5px solid #fbcfe8;
+  border-radius: 12px;
+  padding: 1.75rem 2rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.community-answer-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 6px;
+  background: linear-gradient(180deg, #e0245e, #f43f5e);
+}
+
+.community-answer-card__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.25rem;
+  padding-bottom: 0.85rem;
+  border-bottom: 1px dashed #f9a8d4;
+}
+
+.community-answer-card__admin {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.community-answer-card__badge {
+  background: #e0245e;
+  color: #ffffff;
+  font-size: 0.75rem;
+  font-weight: 800;
+  padding: 0.25rem 0.55rem;
+  border-radius: 4px;
+  letter-spacing: 0.02em;
+}
+
+.community-answer-card__author {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #1e293b;
+}
+
+.community-answer-card__date {
+  font-size: 0.8rem;
+  color: #94a3b8;
+}
+
+.community-answer-card__body {
+  font-size: 0.95rem;
+  line-height: 1.75;
+  color: #334155;
+  word-break: break-word;
+}
+
+.community-answer-card__actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+/* 관리자 답변 작성/수정 폼 */
+.community-admin-form {
+  margin-top: 2.5rem;
+  background: #fff;
+  border: 2px solid #e0245e;
+  border-radius: 12px;
+  padding: 1.5rem;
+}
+
+.community-admin-form__title {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: #e0245e;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.community-admin-form__textarea {
+  width: 100%;
+  min-height: 120px;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  padding: 0.85rem;
+  font-size: 0.95rem;
+  font-family: inherit;
+  resize: vertical;
+  outline: none;
+  box-sizing: border-box;
+}
+
+.community-admin-form__textarea:focus {
+  border-color: #e0245e;
+  box-shadow: 0 0 0 3px rgba(224, 36, 94, 0.12);
+}
+
+.community-admin-form__footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+}
+
+/* --------------------------------------------------------------------------
+   글쓰기 / 수정 폼 추가 요소
+   -------------------------------------------------------------------------- */
+.community-form-options {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin-bottom: 1.25rem;
+  padding: 0.75rem 1rem;
+  background: #f8fafc;
+  border-radius: 6px;
+  border: 1px solid #e2e8f0;
+}
+
+.community-secret-checkbox {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.community-secret-checkbox input[type="checkbox"] {
+  width: 1.1rem;
+  height: 1.1rem;
+  accent-color: #e0245e;
+  cursor: pointer;
+}
+
+.community-select {
+  padding: 0.45rem 0.85rem;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  background-color: #ffffff;
+  font-size: 0.9rem;
+  color: #1e293b;
+  outline: none;
+}
+
+.community-select:focus {
+  border-color: #e0245e;
+}
+
+@media (max-width: 768px) {
+  .community-answer-card {
+    padding: 1.25rem 1.25rem;
+  }
+  
+  .community-reaction-buttons {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}
+

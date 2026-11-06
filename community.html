@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.0, minimum-scale=1.0, user-scalable=yes">
+    <meta name="theme-color" content="#ffffff">
+    <meta name="description" content="VLAST Shop 공식 커뮤니티 및 답변형 Q&A 게시판입니다. 질문과 후기를 남기고 관리자 답변을 확인하세요.">
+    <title>COMMUNITY | VLAST Shop</title>
+    <link rel="preload" href="assets/fonts/spoqa-han-sans-neo-regular.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="css/main.css">
+  </head>
+  <body>
+    <a class="skip-link" href="#main">본문 바로가기</a>
+
+    <!-- 사이트 공통 상단 헤더 (siteLayout.js 모듈에서 일괄 제어) -->
+    <header class="site-header" id="site-header"></header>
+
+    <!-- 메인 본문: 커뮤니티 마운트 영역 -->
+    <main id="main" class="community-page">
+      <div class="community-container" id="community-app">
+        <!-- community.js에 의해 동적으로 4개 화면 렌더링 -->
+      </div>
+    </main>
+
+    <!-- 사이트 공통 하단 컴포넌트 (모바일 바텀바, 플로팅UI, 푸터: siteLayout.js 모듈에서 일괄 제어) -->
+    <nav class="bottom-nav" id="bottom-nav" aria-label="하단 고정 메뉴"></nav>
+    <nav class="floating-ui" id="floating-ui" aria-label="바로가기"></nav>
+    <footer class="site-footer" id="site-footer"></footer>
+
+    <!-- 공통 레이아웃 및 커뮤니티 게시판 초기화 스크립트 -->
+    <script type="module">
+      import { initSiteLayout } from "./js/components/siteLayout.js";
+      import { initCommunityBoard } from "./js/modules/community.js";
+
+      // 공통 상단/하단 모듈 렌더링 및 인증/장바구니 상태 동기화
+      initSiteLayout({ activePage: "community" });
+
+      const mountEl = document.getElementById("community-app");
+      if (mountEl) {
+        initCommunityBoard(mountEl);
+      }
+    </script>
+  </body>
+</html>
+

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.0, minimum-scale=1.0, user-scalable=yes">
+    <meta name="theme-color" content="#ffffff">
+    <meta name="description" content="VLAST Shop 회원가입 페이지입니다.">
+    <title>회원가입 | VLAST Shop</title>
+    <link rel="preload" href="assets/fonts/spoqa-han-sans-neo-regular.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="css/main.css">
+  </head>
+  <body class="signup-page">
+    <a class="skip-link" href="#main">본문 바로가기</a>
+
+    <!-- 사이트 공통 상단 헤더 (siteLayout.js 모듈에서 일괄 제어) -->
+    <header class="site-header" id="site-header"></header>
+
+    <main class="login-page__main" id="main">
+      <div class="login-container">
+        <!-- 상단 헤더 & 브레드크럼 (공지사항 동일 양식) -->
+        <header class="member-header">
+          <div class="member-header__top">
+            <h1 class="member-header__title">MEMBER</h1>
+            <nav class="member-header__breadcrumb" aria-label="현재 위치">
+              <a href="index.html">HOME</a>
+              <span>&gt;</span>
+              <strong>SIGNUP</strong>
+            </nav>
+          </div>
+        </header>
+
+        <!-- 회원가입 폼 카드 -->
+        <section class="auth-card" aria-labelledby="signup-section-title">
+          <div class="auth-card__heading">
+            <div class="auth-card__heading-text" id="signup-section-title">회원가입</div>
+            <span class="auth-card__badge">JOIN US</span>
+          </div>
+
+          <form id="signup-form" novalidate autocomplete="off">
+            <div class="auth-group">
+              <label class="auth-label" for="signup-name">이름 <span class="required" aria-hidden="true">*</span></label>
+              <input type="text" id="signup-name" name="name" class="auth-input" placeholder="이름을 입력해 주세요." autocomplete="name" required>
+            </div>
+
+            <div class="auth-group">
+              <label class="auth-label" for="signup-id">아이디 <span class="required" aria-hidden="true">*</span></label>
+              <div class="auth-input-action-wrap">
+                <input type="text" id="signup-id" name="id" class="auth-input" placeholder="아이디 (영문/숫자 3자 이상)" autocomplete="username" required>
+                <button type="button" class="auth-action-btn" id="check-id-btn">중복확인</button>
+              </div>
+              <p class="auth-field-note" id="signup-id-note">아이디 입력 후 중복확인을 진행해 주세요.</p>
+            </div>
+
+            <div class="auth-group">
+              <label class="auth-label" for="signup-password">비밀번호 <span class="required" aria-hidden="true">*</span></label>
+              <input type="password" id="signup-password" name="password" class="auth-input" placeholder="비밀번호 (4자 이상)" autocomplete="new-password" required>
+            </div>
+
+            <div class="auth-group">
+              <label class="auth-label" for="signup-password-confirm">비밀번호 확인 <span class="required" aria-hidden="true">*</span></label>
+              <input type="password" id="signup-password-confirm" name="passwordConfirm" class="auth-input" placeholder="비밀번호를 한 번 더 입력해 주세요." autocomplete="new-password" required>
+              <p class="auth-field-note" id="signup-pw-note"></p>
+            </div>
+
+            <div class="auth-group">
+              <label class="auth-label" for="signup-email">이메일 <span class="required" aria-hidden="true">*</span></label>
+              <input type="email" id="signup-email" name="email" class="auth-input" placeholder="이메일 주소 (예: user@company.co.kr)" autocomplete="email" required>
+            </div>
+
+            <button type="submit" class="auth-submit-btn auth-submit-btn--pink" id="signup-submit-btn">회원가입 완료</button>
+            <div class="auth-status-message" id="signup-status-msg" role="status" aria-live="polite"></div>
+
+            <!-- 하단 로그인 페이지 이동 링크 -->
+            <div class="auth-card__footer-links">
+              <span>이미 계정이 있으신가요?</span>
+              <a href="login.html">로그인 페이지로 이동 &rarr;</a>
+            </div>
+          </form>
+        </section>
+      </div>
+    </main>
+
+    <!-- 사이트 공통 하단 컴포넌트 (모바일 바텀바, 플로팅UI, 푸터: siteLayout.js 모듈에서 일괄 제어) -->
+    <nav class="bottom-nav" id="bottom-nav" aria-label="모바일 하단 메뉴"></nav>
+    <nav class="floating-ui" id="floating-ui" aria-label="바로가기"></nav>
+    <footer class="site-footer" id="site-footer"></footer>
+
+    <!-- 회원가입 로직 및 공통 레이아웃 초기화 -->
+    <script type="module">
+      import { initSiteLayout } from "./js/components/siteLayout.js";
+      initSiteLayout({ activePage: "signup" });
+    </script>
+    <script type="module" src="js/modules/signup.js"></script>
+  </body>
+</html>

@@ -35,27 +35,40 @@ export const noticeFirebaseService = {
     }
 
     try {
-      // 3.5초 타임아웃 레이스: 네트워크 지연 시 폴백 데이터 반환
       const fetchPromise = (async () => {
-        const colRef = collection(db, COLLECTION_NAME);
-        const snapshot = await getDocs(colRef);
+        try {
+          console.log('[Firebase] Firestore notices 컬렉션 데이터 요청 시작...');
+          const colRef = collection(db, COLLECTION_NAME);
+          const snapshot = await getDocs(colRef);
 
-        // Firestore가 완전히 비어있을 경우 초기 공지사항 자동 시딩 (1회)
-        if (snapshot.empty) {
-          console.log('[Firebase Migration] Firestore notices 컬렉션이 비어 있어 기존 공지 데이터를 자동 시딩합니다.');
-          noticeFirebaseService.seedInitialData().catch((e) => console.warn('시딩 비동기 진행:', e));
+          console.log(`[Firebase] Firestore 데이터 로드 성공 (${snapshot.size}건)`);
+
+          // Firestore가 비어있을 경우 초기 공지사항 자동 시딩 (1회)
+          if (snapshot.empty) {
+            console.log('[Firebase Migration] Firestore notices 컬렉션이 비어 있어 기존 공지 데이터를 자동 시딩합니다.');
+            noticeFirebaseService.seedInitialData().catch((e) => console.warn('시딩 비동기 진행:', e));
+            return noticeFirebaseService.applySortAndFilter([...INITIAL_NOTICES], filter);
+          }
+
+          let items = snapshot.docs.map((d) => ({ id: d.id, ...d.data() }));
+          return noticeFirebaseService.applySortAndFilter(items, filter);
+        } catch (fetchErr) {
+          console.error('[Firebase] Firestore 데이터 요청 실패:', fetchErr);
+          if (fetchErr?.code === 'permission-denied') {
+            console.warn(
+              '⚠️ [Firebase 보안 규칙 안내] Firebase Console > Firestore Database > 규칙(Rules) 탭에서 읽기/쓰기 권한을 허용해 주어야 합니다.\n' +
+              'allow read, write: if true;'
+            );
+          }
           return noticeFirebaseService.applySortAndFilter([...INITIAL_NOTICES], filter);
         }
-
-        let items = snapshot.docs.map((d) => ({ id: d.id, ...d.data() }));
-        return noticeFirebaseService.applySortAndFilter(items, filter);
       })();
 
       const timeoutPromise = new Promise((resolve) => {
         setTimeout(() => {
-          console.warn('[Firebase] Firestore 응답 대기 초과(3.5s), 로컬 캐시/초기 공지 데이터를 우선 렌더링합니다.');
+          console.warn('[Firebase] Firestore 네트워크 응답 대기 초과(8s), 기본 공지 데이터를 우선 렌더링합니다.');
           resolve(noticeFirebaseService.applySortAndFilter([...INITIAL_NOTICES], filter));
-        }, 3500);
+        }, 8000);
       });
 
       return await Promise.race([fetchPromise, timeoutPromise]);

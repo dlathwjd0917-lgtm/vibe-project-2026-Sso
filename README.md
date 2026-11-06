@@ -416,3 +416,79 @@ project-root/
 - **패치 및 안정성 보강**:
   - `noticeFirebaseService.js`의 `INITIAL_NOTICES` import 경로 불일치 오류(`../mock/noticeMockService.js` ➔ `../mock/initialNotices.js`) 수정 완료.
   - Firestore 응답 지연/오류 시에도 화면이 멈추지 않도록 3.5초 타임아웃 레이스 및 안전 폴백 렌더링 보호막 추가.
+
+---
+
+## 17. 로그인 / 회원가입 기능 및 공지사항 관리자 권한 제어 구현 내역 (작업 013)
+
+- **로그인 및 회원가입 서비스 (`js/services/authService.js`)**:
+  - Firebase Cloud Firestore의 `users` 컬렉션에 사용자 정보(이름, 아이디, 비밀번호, 이메일, 역할, 등록일) 실시간 저장 및 연동.
+  - 기본 관리자 계정(`뚝스`/`admin`) 및 기존 로컬 회원의 Firestore 자동 동기화(`syncToFirebase`) 탑재.
+  - **수동 등록 기본 관리자 계정**:
+    - 이름: `뚝스`
+    - 아이디: `admin`
+    - 비밀번호: `1111`
+    - 이메일: `admin.com@company.co.kr`
+  - **회원가입**: `이름`, `아이디`, `비밀번호`, `이메일` 4개 필수 입력값 검증, Firestore 기반 아이디 중복 체크(`checkIdDuplicate`), 이메일 유효성 검사 후 Firestore `users` 컬렉션 문서로 저장.
+  - **로그인 / 로그아웃**: Firestore 실시간 자격 증명 검증 후 브라우저 세션 저장 및 실시간 상태 이벤트(`vlast_auth_changed`) 디스패치.
+- **전역 상단 헤더 동적 전환 (`js/components/authHeader.js`)**:
+  - 모든 페이지(`index.html`, `notice.html`, `detail.html`, `cart.html`, `login.html`, `signup.html`) 상단 헤더에 실시간 반영:
+    - **로그인 시**: `뚝스 환영합니다` (사용자 등급 및 괄호 표기 없이 이름만 표시) + `로그아웃` 버튼 + `주문조회` + `최근본상품`
+    - **비로그인 시**: `회원가입`(`signup.html`) + `로그인`(`login.html`) + `주문조회` + `최근본상품`
+    - `로그아웃` 버튼 클릭 시 확인 다이얼로그 후 즉시 세션 해제 및 헤더 리렌더링.
+- **공지사항(Notice) 기준 디자인의 회원 화면 (`login.html`, `signup.html`, `css/components/login.css`)**:
+  - 상단 `MEMBER` 타이틀 및 핑크(`#e0245e`) 2px 하단 라인, 브레드크럼(`HOME > MEMBER > LOGIN` / `SIGNUP`) 구조 적용.
+  - **로그인 페이지 (`login.html`)**: 아이디, 비밀번호 입력 필드, 로그인 버튼, 테스트용 관리자 원클릭 자동입력 버튼, 하단에 **회원가입 페이지 이동 링크(`signup.html`)** 배치.
+  - **회원가입 페이지 (`signup.html`)**: 별도 독립 페이지로 분리 구성. 이름, 아이디 + 중복확인 버튼, 비밀번호, 비밀번호 확인, 이메일 입력 필드 및 완료 버튼, 하단에 **로그인 페이지 이동 링크(`login.html`)** 배치.
+  - **전용 스크립트 분리 (`js/modules/login.js`, `js/modules/signup.js`)**: 회원가입 성공 시 가입된 아이디 정보를 전달하며 로그인 페이지로 자동 전환.
+- **공지사항 권한 제어 (`js/modules/notice.js`)**:
+  - **글쓰기 버튼 제어**: 목록 화면 우측 상단 `글쓰기 >` 버튼은 `admin` 관리자에게만 노출.
+  - **수정 / 삭제 버튼 제어**: 상세 화면 하단 `수정`, `삭제` 버튼은 `admin` 관리자에게만 노출.
+  - **라우팅 가드 (URL 보호)**: 일반 회원이나 비로그인 사용자가 `?mode=write` 또는 `?mode=edit` URL로 직접 진입 시 경고 팝업을 띄우고 즉시 목록으로 튕겨내도록 보안 보호 적용.
+  - **작성자 연동**: 관리자가 글 작성 시 작성자(`author`) 필드에 로그인된 관리자 이름(`뚝스`)이 자동 세팅.
+
+---
+
+## 18. 상·하단 공통 모듈화(siteLayout.js) 및 회원정보 필드 규격화 (작업 014)
+
+- **상·하단 공통 레이아웃 중앙 제어 모듈 (`js/components/siteLayout.js`)**:
+  - 각 페이지(`index.html`, `notice.html`, `cart.html`, `detail.html`, `login.html`, `signup.html`)에 수백 줄씩 반복되던 하드코딩 마크업을 완전히 제거하고, 단일 모듈에서 중앙 집중 제어하도록 리팩터링 완료.
+  - **`getHeaderTemplate(activePage)`**: 상단 유틸리티 링크, 브랜드 로고, 쇼핑 아이콘, GNB 카테고리 6종 메뉴 렌더링.
+  - **`getBottomNavTemplate(activePage)`**: 모바일 전용 5대 탭(카테고리, 검색, 홈, 장바구니, 마이) 렌더링 및 활성 탭 하이라이트.
+  - **`getFloatingUITemplate()`**: 플로팅 맨 위로 이동(스무스 스크롤 자동 바인딩) 및 고객센터 버튼 렌더링.
+  - **`getFooterTemplate()`**: 기업 정보, 정책 링크, CIRCLE CHART/HANTEO 인증마크, 고객센터, 저작권, 에스크로 안전결제 배너 등 완성형 공통 푸터 렌더링.
+  - **`initSiteLayout(options)`**: 상단/하단 4대 컴포넌트 렌더링 + `initAuthHeader()`(로그인 환영문구) + `initCartBadge()`(장바구니 수량) 자동 통합 실행.
+- **회원 정보 필드 규격화 (`js/services/authService.js`)**:
+  - 일반회원은 **`role: 'user'`**, 관리자는 **`role: 'admin'`** 으로 규격화.
+  - 필수 저장 필드: `createdAt` (ISO 문자열), `email` (문자열), `name` (문자열), `role` ('admin' | 'user'), `username` (아이디 문자열), `id`, `password`.
+  - Firebase Cloud Firestore의 `users` 컬렉션에 동일 규격으로 영구 저장 및 자동 동기화.
+
+---
+
+## 19. 커뮤니티(답변형 Q&A) 게시판 구현 내역 (작업 015)
+
+- **Firebase Cloud Firestore 연동 (`community_posts` 컬렉션)**:
+  - `js/services/firebase/communityFirebaseService.js`, `js/services/communityService.js` 구현.
+  - CRUD(작성, 상세조회, 목록조회, 수정, 삭제) 및 카테고리/기간/키워드 필터링, 조회수 카운트 연동.
+  - 초기 데이터 자동 시딩(Auto Seeding) 및 로컬 스토리지 백업 캐시를 지원하여 지연 없이 안정적인 렌더링 보장.
+- **질문 유형 6종 드롭다운 & 탭 필터**:
+  - `'배송문의'`, `'교환/환불'`, `'계정문의'`, `'시스템오류'`, `'굿즈리뷰'`, `'기타'`.
+  - 글 작성/수정 시 필수 선택값으로 지정되며, 목록 상단 탭 버튼을 통해 유형별 모아보기 제공.
+- **권한 제어 및 비밀글(비공개) 보호 UX**:
+  - **글쓰기**: 로그인 회원만 가능 (미로그인 상태로 클릭 시 로그인 확인 팝업 및 이동 안내).
+  - **글 수정/삭제**: 작성자 본인 및 관리자(`admin`)만 가능.
+  - **비공개 설정(`isSecret`)**:
+    - 리스트 화면: 제목 바로 아래에 `🔒 비공개` 뱃지 노출.
+    - 상세 화면: 작성자 본인 또는 관리자가 아닐 경우 본문을 노출하지 않고 `🔒 비밀글로 보호된 게시글입니다. 작성자 본인과 관리자만 확인하실 수 있습니다.` 잠금 안내 카드 노출.
+- **답변형 게시판 기능 (관리자 전용 답변)**:
+  - 리스트 테이블의 STATUS 컬럼에 `답변완료` 또는 `답변대기` 상태 뱃지 노출.
+  - 상세 보기 시 질문글 본문 바로 아래에 관리자 공식 답변 카드 표출.
+  - 관리자(`admin`, 예: `뚝스`) 계정으로 로그인한 경우에만 답변 작성/수정/삭제 폼 및 버튼 활성화.
+- **이모티콘 3종 의견 반응 (웃음, 슬픔, 좋아요)**:
+  - 상세 글 하단에 누구나 클릭 가능한 반응 버튼 3종 제공: `웃음(smile 😊)`, `슬픔(sad 😢)`, `좋아요(like ❤️)`.
+  - 버튼 클릭 시 Firestore의 `increment(1)`을 통해 실시간 반응 카운트가 원자적으로 누적 반영.
+- **화면 구성 및 디자인 연동**:
+  - `community.html`: 시맨틱 마크업 및 `siteLayout.js` 공통 상·하단 연동 (`activePage: "community"`).
+  - `css/components/community.css`, `css/main.css`: 공지사항 Notice의 톤앤매너(VLAST 핑크 `#e0245e`, 타이틀 밑줄, 테이블 디자인)를 계승.
+  - `js/components/siteLayout.js`: GNB 카테고리 메뉴에 `COMMUNITY` 링크 추가.
+

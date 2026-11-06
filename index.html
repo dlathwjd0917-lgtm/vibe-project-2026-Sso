@@ -403,73 +403,8 @@
   <a class="skip-link" href="#main">본문 바로가기</a>
   <a class="skip-link" href="#category">전체상품목록 바로가기</a>
 
-  <header class="site-header">
-    <div class="inner-box">
-      <div class="header__part header__part--utility">
-        <a class="header__language" href="#site-footer" aria-label="언어 선택, 현재 한국어">
-          한국어 <span aria-hidden="true">⌄</span>
-        </a>
-        <nav class="header__utility-links" aria-label="회원 메뉴">
-          <a href="#site-footer">회원가입</a>
-          <a href="login.html">로그인</a>
-          <a href="#site-footer">주문조회</a>
-          <a href="#new-arrivals">최근본상품</a>
-        </nav>
-      </div>
-
-      <div class="header__part header__part--main">
-        <a class="header__logo" href="#main" aria-label="VLAST Shop 홈">
-          <span>VLAST</span><span class="header__logo-shop">Shop</span>
-        </a>
-        <nav class="header__icons" aria-label="쇼핑 메뉴">
-          <a class="icon-link" href="#search-view" aria-label="상품 검색" aria-controls="search-view" aria-expanded="false"
-            data-search-open>
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-              <circle cx="10.8" cy="10.8" r="6.8"></circle>
-              <path d="m16 16 4.5 4.5"></path>
-            </svg </a>
-            <a class="icon-link" href="login.html" aria-label="로그인">
-              <svg viewBox="0 0 24 24" aria-hidden="true">
-                <circle cx="12" cy="7.5" r="4"></circle>
-                <path d="M4.5 20c.5-4 3.1-6 7.5-6s7 2 7.5 6z"></path>
-              </svg>
-            </a>
-            <a class="icon-link cart-icon-wrap" href="cart.html" aria-label="장바구니" data-cart-link>
-              <svg viewBox="0 0 24 24" aria-hidden="true">
-                <path d="M5 8h14l1.2 12H3.8z"></path>
-                <path d="M9 9V6a3 3 0 0 1 6 0v3"></path>
-              </svg>
-            </a>
-        </nav>
-      </div>
-      <nav class="header__part header__part--navigation gnb" id="category" aria-label="카테고리 메뉴">
-        <button class="header__mobile-menu icon-link" type="button" aria-label="전체 메뉴 열기" aria-controls="mobile-drawer"
-          aria-expanded="false" data-drawer-open>
-          <svg viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M4 6h16M4 12h16M4 18h16"></path>
-          </svg>
-        </button>
-        <ul class="gnb__list">
-          <li class="gnb__mobile-logo-item">
-            <a class="gnb__mobile-logo" href="#main" aria-label="VLAST Shop 홈"><span>VLAST</span><span>Shop</span></a>
-          </li>
-          <li class="gnb__category-item"><a href="#new-arrivals" data-catalog-parent="ALBUM">ALBUM</a></li>
-          <li class="gnb__category-item"><a href="#new-arrivals" data-catalog-parent="MERCH">MERCH</a></li>
-          <li class="gnb__category-item"><a href="#new-arrivals" data-catalog-parent="TOUR">TOUR</a></li>
-          <li class="gnb__category-item"><a href="#new-arrivals" data-catalog-parent="SEASONAL">SEASONAL</a></li>
-          <li class="gnb__category-item"><a href="#new-arrivals" data-catalog-parent="ASTERUM 433-10">ASTERUM 433-10</a></li>
-          <li class="gnb__category-item"><a href="notice.html">NOTICE</a></li>
-        </ul>
-        <a class="header__mobile-search icon-link" href="#search-view" aria-label="상품 검색" aria-controls="search-view"
-          aria-expanded="false" data-search-open>
-          <svg viewBox="0 0 24 24" aria-hidden="true">
-            <circle cx="10.8" cy="10.8" r="6.8"></circle>
-            <path d="m16 16 4.5 4.5"></path>
-          </svg>
-        </a>
-      </nav>
-    </div>
-  </header>
+  <!-- 사이트 공통 상단 헤더 (siteLayout.js 모듈에서 일괄 제어) -->
+  <header class="site-header" id="site-header"></header>
 
   <!-- 모바일 전체 메뉴 오버레이와 드로어 -->
   <button class="mobile-drawer-overlay" type="button" aria-label="전체 메뉴 닫기" tabindex="-1" data-drawer-overlay></button>
@@ -612,70 +547,6 @@
             </div>
             <button class="visual__toggle" type="button" data-carousel-toggle aria-label="자동 재생 정지">정지</button>
           </nav>
-
-          <nav class="floating-ui" aria-label="바로가기">
-            <a class="floating-ui__button floating-ui__button--top" href="#main" aria-label="맨 위로">
-              <svg viewBox="0 0 24 24" aria-hidden="true">
-                <path d="M12 19V5M6 11l6-6 6 6"></path>
-              </svg>
-            </a>
-            <a class="floating-ui__button floating-ui__button--pink" href="#site-footer" aria-label="고객센터">
-              <svg viewBox="0 0 24 24" aria-hidden="true">
-                <path d="M4 5.5h16v11H9l-5 3z"></path>
-                <path d="M8 10h8M8 13h5"></path>
-              </svg>
-            </a>
-          </nav>
-
-          <nav class="bottom-nav" aria-label="하단 고정 메뉴">
-            <ul class="bottom-nav__list">
-              <li>
-                <button class="bottom-nav__link" type="button" aria-label="카테고리 전체 메뉴 열기" aria-controls="mobile-drawer"
-                  aria-expanded="false" data-drawer-open>
-                  <svg viewBox="0 0 24 24" aria-hidden="true">
-                    <path d="M4 6h16M4 12h16M4 18h16"></path>
-                  </svg>
-                  <span class="sr-only">카테고리</span>
-                </button>
-              </li>
-              <li>
-                <a class="bottom-nav__link" href="#search-view" aria-label="상품 검색 열기" aria-controls="search-view"
-                  aria-expanded="false" data-search-open>
-                  <svg viewBox="0 0 24 24" aria-hidden="true">
-                    <circle cx="11" cy="11" r="7"></circle>
-                    <path d="m16.5 16.5 4.5 4.5"></path>
-                  </svg>
-                  <span class="sr-only">검색</span>
-                </a>
-              </li>
-              <li>
-                <a class="bottom-nav__link" href="#main" aria-current="page" aria-label="홈으로 이동">
-                  <svg viewBox="0 0 24 24" aria-hidden="true">
-                    <path d="m3 10.5 9-7.5 9 7.5V20a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1z"></path>
-                  </svg>
-                  <span class="sr-only">홈</span>
-                </a>
-              </li>
-              <li>
-                <a class="bottom-nav__link cart-icon-wrap" href="cart.html" aria-label="장바구니" data-cart-link>
-                  <svg viewBox="0 0 24 24" aria-hidden="true">
-                    <path d="M6 8h12l1.2 12H4.8z"></path>
-                    <path d="M9 8V5.5a3 3 0 0 1 6 0V8"></path>
-                  </svg>
-                  <span class="sr-only">장바구니</span>
-                </a>
-              </li>
-              <li>
-                <a class="bottom-nav__link" href="login.html" aria-label="로그인 및 마이페이지 이동">
-                  <svg viewBox="0 0 24 24" aria-hidden="true">
-                    <circle cx="12" cy="7.5" r="4"></circle>
-                    <path d="M4.5 20c.5-4 3.1-6 7.5-6s7 2 7.5 6z"></path>
-                  </svg>
-                  <span class="sr-only">마이</span>
-                </a>
-              </li>
-            </ul>
-          </nav>
         </div>
       </div>
     </section>
@@ -723,94 +594,10 @@
     </section>
   </main>
 
-  <footer class="site-footer" id="site-footer">
-    <div class="inner-box">
-      <div class="footer__top">
-        <div class="footer__main-info">
-          <a class="footer__logo" href="#main" aria-label="VLAST Shop 홈으로 이동">
-            <span class="footer__logo-main">VLAST</span>
-            <span class="footer__logo-sub">Shop</span>
-          </a>
-
-          <nav class="footer__links" aria-label="푸터 정책 링크">
-            <a href="#site-footer">회사소개</a>
-            <a href="#site-footer">이용약관</a>
-            <a class="is-strong" href="#site-footer">개인정보처리방침</a>
-            <a href="#site-footer">이용안내</a>
-          </nav>
-
-          <div class="footer__company-info">
-            <div class="footer__info-row">
-              <span class="footer__info-item"><strong>상호명</strong> (주)로운컴퍼니씨앤씨</span>
-              <span class="footer__info-item"><strong>대표자명</strong> 최윤석</span>
-            </div>
-            <div class="footer__info-row">
-              <span class="footer__info-item"><strong>사업장 주소</strong> 03926 서울특별시 마포구 상암산로 76 (상암동) YTN 뉴스퀘어 18층
-                로운컴퍼니씨앤씨</span>
-            </div>
-            <div class="footer__info-row">
-              <span class="footer__info-item"><strong>대표전화</strong> 1566-7216</span>
-              <span class="footer__info-item"><strong>이메일</strong> support@vlastshop.com</span>
-              <span class="footer__info-item"><strong>사업자 등록번호</strong> 128-87-04926</span>
-            </div>
-            <div class="footer__info-row">
-              <span class="footer__info-item"><strong>통신판매업 신고번호</strong> 제 2022-서울마포-1985호 <a class="footer__info-link"
-                  href="#site-footer">[사업자정보확인]</a></span>
-              <span class="footer__info-item"><strong>개인정보보호책임자</strong> 최윤석</span>
-            </div>
-          </div>
-
-          <div class="footer__badges">
-            <div class="badge-circle-chart" aria-label="CIRCLE CHART 인증">
-              <span class="badge-circle-chart__icon" aria-hidden="true"></span>
-              <span>CIRCLE CHART</span>
-            </div>
-            <div class="badge-hanteo" aria-label="2024 한터 패밀리 인증">
-              <div class="badge-hanteo__box" aria-hidden="true">
-                <svg width="18" height="12" viewBox="0 0 18 12" fill="none">
-                  <rect x="2" y="2" width="2" height="8" rx="1" fill="#e0245e" />
-                  <rect x="6" y="0" width="2" height="12" rx="1" fill="#111111" />
-                  <rect x="10" y="2" width="2" height="8" rx="1" fill="#e0245e" />
-                  <rect x="14" y="4" width="2" height="4" rx="1" fill="#111111" />
-                </svg>
-                <span class="badge-hanteo__logo-text">HANTEO</span>
-              </div>
-              <div class="badge-hanteo__text">
-                <strong>2024<br>한터 패밀리</strong>
-                <span>NO. HF0082ROW001</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="footer__customer-center">
-          <span>Customer Center</span>
-        </div>
-      </div>
-
-      <hr class="footer__divider" aria-hidden="true">
-
-      <p class="footer__copyright">
-        Copyright (C) VLAST Co., Ltd. WARNING : All Rights Reserved. Unauthorized Duplication &amp; Rent is Prohibited.
-      </p>
-
-      <div class="footer__escrow">
-        <div class="footer__escrow-brand">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="#3273dc" aria-hidden="true">
-            <circle cx="12" cy="12" r="10" fill="#3273dc" />
-            <path d="M8 12l3 3 5-5" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
-              fill="none" />
-          </svg>
-          <span>payments 구매안전서비스</span>
-        </div>
-        <div class="footer__escrow-desc">
-          <span>매매 보호 서비스 에스크로를 이용할 수 있어요.</span>
-          <span>결제대금예치업 등록번호 02-006-00059</span>
-        </div>
-        <a class="footer__escrow-button" href="#site-footer" target="_blank" rel="noopener noreferrer">가입 사실 확인하기</a>
-      </div>
-    </div>
-  </footer>
+  <!-- 사이트 공통 하단 컴포넌트 (모바일 바텀바, 플로팅UI, 푸터: siteLayout.js 모듈에서 일괄 제어) -->
+  <nav class="bottom-nav" id="bottom-nav" aria-label="하단 고정 메뉴"></nav>
+  <nav class="floating-ui" id="floating-ui" aria-label="바로가기"></nav>
+  <footer class="site-footer" id="site-footer"></footer>
   <script>
     // 전체 메뉴 데이터와 렌더링
     const drawerMenuItems = [

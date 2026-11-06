@@ -1,0 +1,346 @@
+/* ==========================================================================
+   Login & Signup Page Styles (공지사항 Notice 룩앤필 기준 디자인)
+   - 상단 로그인 폼 & 하단 회원가입 폼 구조
+   - 핑크(#e0245e) 포인트 컬러 및 공지사항 폼 카드 양식 통일
+   ========================================================================== */
+
+.login-page__main {
+  padding-block-start: calc(var(--header-fixed-height, 10.5rem) + 2rem);
+  padding-block-end: 6rem;
+  background-color: #ffffff;
+  min-height: 80vh;
+}
+
+.login-container {
+  width: 100%;
+  max-width: 680px;
+  margin-inline: auto;
+  padding-inline: var(--inner-gutter, 1.5rem);
+}
+
+/* 상단 헤더 & 브레드크럼 (공지사항 동일 스타일) */
+.member-header {
+  margin-bottom: 2.5rem;
+}
+
+.member-header__top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding-bottom: 0.85rem;
+  border-bottom: 2px solid #e0245e;
+}
+
+.member-header__title {
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: #e0245e;
+  letter-spacing: -0.02em;
+  margin: 0;
+  line-height: 1.2;
+}
+
+.member-header__breadcrumb {
+  font-size: 0.8125rem;
+  color: #777777;
+}
+
+.member-header__breadcrumb a {
+  color: #777777;
+  text-decoration: none;
+}
+
+.member-header__breadcrumb a:hover {
+  text-decoration: underline;
+  color: #111111;
+}
+
+.member-header__breadcrumb span {
+  margin-inline: 0.4rem;
+  color: #cccccc;
+}
+
+.member-header__breadcrumb strong {
+  color: #111111;
+  font-weight: 700;
+}
+
+/* 폼 카드 컨테이너 (공지사항 .notice-form-card 매칭) */
+.auth-card {
+  border: 1px solid #e5e5e5;
+  border-radius: 8px;
+  background-color: #ffffff;
+  padding: 2.5rem 3rem;
+  margin-bottom: 3rem;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.03);
+}
+
+.auth-card__heading {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #111111;
+  margin-bottom: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.auth-card__heading-text {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.auth-card__heading-text::before {
+  content: "";
+  display: inline-block;
+  width: 4px;
+  height: 1.25rem;
+  background-color: #e0245e;
+  border-radius: 2px;
+}
+
+.auth-card__badge {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #e0245e;
+  background-color: #ffeef2;
+  padding: 0.25rem 0.6rem;
+  border-radius: 9999px;
+}
+
+/* 폼 그룹 및 라벨 */
+.auth-group {
+  margin-bottom: 1.5rem;
+}
+
+.auth-label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: #222222;
+  margin-bottom: 0.5rem;
+}
+
+.auth-label .required {
+  color: #e0245e;
+  margin-left: 0.15rem;
+}
+
+.auth-input {
+  width: 100%;
+  height: 3rem;
+  padding: 0 1rem;
+  border: 1px solid #dddddd;
+  border-radius: 6px;
+  font-family: inherit;
+  font-size: 0.9375rem;
+  color: #222222;
+  background-color: #ffffff;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.auth-input:focus {
+  border-color: #e0245e;
+  box-shadow: 0 0 0 3px rgba(224, 36, 94, 0.12);
+}
+
+.auth-input::placeholder {
+  color: #aaaaaa;
+  font-size: 0.875rem;
+}
+
+/* 아이디 중복확인 입력 래퍼 */
+.auth-input-action-wrap {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.auth-input-action-wrap .auth-input {
+  flex: 1;
+}
+
+.auth-action-btn {
+  height: 3rem;
+  padding: 0 1.25rem;
+  background-color: #ffffff;
+  color: #333333;
+  border: 1px solid #cccccc;
+  border-radius: 6px;
+  font-family: inherit;
+  font-size: 0.875rem;
+  font-weight: 600;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.auth-action-btn:hover {
+  border-color: #111111;
+  background-color: #f8f8f8;
+  color: #000000;
+}
+
+.auth-field-note {
+  font-size: 0.8125rem;
+  margin-top: 0.4rem;
+  color: #666666;
+}
+
+.auth-field-note.is-valid {
+  color: #059669;
+  font-weight: 600;
+}
+
+.auth-field-note.is-invalid {
+  color: #e0245e;
+  font-weight: 600;
+}
+
+/* 메인 제출 버튼 */
+.auth-submit-btn {
+  width: 100%;
+  height: 3.25rem;
+  margin-top: 1rem;
+  background-color: #111111;
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.15s ease;
+}
+
+.auth-submit-btn:hover {
+  background-color: #e0245e;
+  transform: translateY(-1px);
+}
+
+.auth-submit-btn--pink {
+  background-color: #e0245e;
+}
+
+.auth-submit-btn--pink:hover {
+  background-color: #c4184e;
+}
+
+/* 관리자 계정 빠른 채우기 박스 */
+.auth-quick-admin-box {
+  background-color: #fcfcfc;
+  border: 1px dashed #d5d5d5;
+  border-radius: 6px;
+  padding: 1rem 1.25rem;
+  margin-top: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.auth-quick-admin-info {
+  font-size: 0.8125rem;
+  color: #555555;
+  line-height: 1.5;
+}
+
+.auth-quick-admin-info strong {
+  color: #111111;
+}
+
+.auth-quick-admin-btn {
+  padding: 0.5rem 0.875rem;
+  background-color: #333333;
+  color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  font-family: inherit;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.auth-quick-admin-btn:hover {
+  background-color: #e0245e;
+}
+
+/* 하단 회원가입 바로가기 / 로그인 바로가기 안내 */
+.auth-card__footer-links {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1.5rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid #f2f2f2;
+  font-size: 0.875rem;
+  color: #666666;
+}
+
+.auth-card__footer-links a,
+.auth-card__footer-links button {
+  color: #e0245e;
+  font-weight: 700;
+  text-decoration: underline;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  font-size: inherit;
+  font-family: inherit;
+}
+
+.auth-status-message {
+  margin-top: 1rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-align: center;
+  padding: 0.75rem;
+  border-radius: 6px;
+  display: none;
+}
+
+.auth-status-message.is-error {
+  display: block;
+  background-color: #ffeef2;
+  color: #e0245e;
+  border: 1px solid #ffd4df;
+}
+
+.auth-status-message.is-success {
+  display: block;
+  background-color: #ecfdf5;
+  color: #059669;
+  border: 1px solid #a7f3d0;
+}
+
+/* 반응형 */
+@media (max-width: 768px) {
+  .login-page__main {
+    padding-block-start: calc(var(--header-mobile-h, 2.75rem) + 1.5rem);
+  }
+
+  .auth-card {
+    padding: 1.75rem 1.25rem;
+  }
+
+  .member-header__top {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .auth-quick-admin-box {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
