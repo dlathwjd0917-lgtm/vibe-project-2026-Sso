@@ -396,3 +396,23 @@ project-root/
   - 카드 클릭 시 상세페이지(`detail.html?id={id}&parent=NEW%20ARRIVALS`)로 연계되어 동일한 이미지와 상품 정보가 세팅되도록 `data/products_detail.json` 및 `js/data/fallbackProducts.js`에도 8개 상품 동기화 완료 (총 205개 상품).
 - **상품 더보기 연동**:
   - 첫 8개(2줄) 렌더링 후 `상품 더보기(1/10)` 버튼 클릭 시 다음 2줄(8개 상품)이 데이터에 맞게 순차적으로 추가 누적 렌더링(`append`).
+
+
+---
+
+## 16. 공지사항 Firebase Cloud Firestore 마이그레이션 구현 내역 (작업 012)
+
+- **Firebase 프로젝트 연동 (`sso-wed-project`)**:
+  - 사용자 제공 `firebaseConfig`를 [js/services/firebase/firebaseConfig.js](file:///c:/Users/Administrator.User-2026NDLUOK/Documents/new_github/vibe-project-2026-Sso/vibe-project-2026-Sso/js/services/firebase/firebaseConfig.js)에 적용 완료.
+  - 최신 Firebase SDK v10 Modular 공식 CDN 연동을 통해 번들러/빌드 도구 없는 순수 브라우저 ES Modules 환경에서 Firestore 클라이언트 인스턴스 초기화.
+- **서비스 계층 전환 (`noticeService.js`)**:
+  - UI 컴포넌트(`notice.html`, `js/modules/notice.js`, `js/components/topNoticeBar.js`)의 코드 수정 없이, [js/services/noticeService.js](file:///c:/Users/Administrator.User-2026NDLUOK/Documents/new_github/vibe-project-2026-Sso/vibe-project-2026-Sso/js/services/noticeService.js)의 export 대상을 Mock에서 `noticeFirebaseService`로 전환 완료.
+- **안정성 및 요구사항 반영 (`noticeFirebaseService.js`)**:
+  - **첨부파일**: 복잡한 별도 Storage 규칙 설정 없이 기존 DataURL(Base64) 방식을 그대로 유지하여 Firestore 문서 객체에 직접 저장.
+  - **보안 설정**: 별도 admin 로그인 없이 누구나 공지사항을 조회·등록·수정·삭제할 수 있는 테스트 환경 지원.
+  - **복합 색인 오류 방지**: Firestore Composite Index 생성 여부와 관계없이 에러가 발생하지 않도록 상단 공지 우선 및 최신순 정렬을 보장하는 안전 쿼리 로직 탑재.
+  - **자동 마이그레이션 (Auto Seeding)**: Firestore `notices` 컬렉션이 비어있는 경우 기존 LocalStorage 및 상단 고정 공지 4종을 포함한 초기 공지 데이터 세트를 1회 자동 업로드하여 데이터 유실 없는 무중단 전환 보장.
+
+- **패치 및 안정성 보강**:
+  - `noticeFirebaseService.js`의 `INITIAL_NOTICES` import 경로 불일치 오류(`../mock/noticeMockService.js` ➔ `../mock/initialNotices.js`) 수정 완료.
+  - Firestore 응답 지연/오류 시에도 화면이 멈추지 않도록 3.5초 타임아웃 레이스 및 안전 폴백 렌더링 보호막 추가.

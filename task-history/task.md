@@ -196,3 +196,27 @@
     - 8개 상품(ID 502, 501, 500, 499, 498, 497, 496, 483)의 상세 메타데이터(이미지, 상품명, 가격, 품절 여부)를 동기화 추가하여 전체 205개 상품으로 확장.
     - 카드 클릭 시 상세페이지(`detail.html`) 및 장바구니(`cart.html`)에서 동일한 상품 정보가 세팅되도록 연동.
   - 지침 준수: 별도 개별 테스트 스크립트를 수행하지 않고 `README.md` 및 `task-history/task.md`에 모든 구현 내용을 상세 기록 완료.
+
+
+## 작업 012 — 공지사항 Firebase Cloud Firestore 마이그레이션 (2026-11-06, 완료)
+
+- **요청**:
+  - 공지사항 데이터를 기존 LocalStorage에서 Firebase Firestore로 마이그레이션.
+  - 첨부파일은 기존 방식(DataURL)을 유지하고, 별도 admin 인증 없이 테스트용으로 쉽게 연결되도록 설정.
+  - 제공된 Firebase SDK configuration(`sso-wed-project`) 반영.
+- **구현 상태**:
+  - `js/services/firebase/firebaseConfig.js`:
+    - 사용자 제공 `firebaseConfig`(`apiKey`, `authDomain`, `projectId: sso-wed-project`, `storageBucket`, `messagingSenderId`, `appId`) 적용.
+    - 공식 Firebase SDK v10 Modular CDN import를 통해 정적 웹 환경에서 Firestore DB 인스턴스 초기화.
+  - `js/services/firebase/noticeFirebaseService.js`:
+    - Firestore `notices` 컬렉션 기반 CRUD(조회, 상세, 등록, 수정, 삭제, 조회수 증가) 완성.
+    - 첨부파일은 기존 DataURL 방식을 유지하여 문서 내 `attachments` 필드로 보존.
+    - 복합 색인(Composite Index) 미생성 시에도 에러 없이 상단 공지 우선 및 최신순 정렬이 유지되도록 안전 정렬 알고리즘 적용.
+    - Firestore 컬렉션이 비어있을 경우 기존 LocalStorage 및 Mock 공지(상단 고정 공지 4종 포함)를 1회 자동 업로드하는 `seedInitialData` 탑재.
+  - `js/services/noticeService.js`:
+    - UI 컴포넌트(`notice.html`, `js/modules/notice.js`, `js/components/topNoticeBar.js`) 변경 없이, 엔트리포인트를 Firebase 모드로 전환 완료.
+  - 지침 준수: 별도 개별 테스트 스크립트를 수행하지 않고 `README.md` 및 `task-history/task.md`에 모든 구현 내용을 상세 기록 완료.
+
+  - **패치 및 안정성 보강**:
+    - `noticeFirebaseService.js`의 `INITIAL_NOTICES` import 경로 불일치 오류(`../mock/noticeMockService.js` ➔ `../mock/initialNotices.js`) 수정 완료.
+    - 네트워크 지연이나 보안 규칙 미적용 상황에서도 화면이 백지로 멈추지 않도록 3.5초 타임아웃 레이스 및 안전 폴백 렌더링 로직 추가.

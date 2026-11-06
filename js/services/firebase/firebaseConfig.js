@@ -1,26 +1,22 @@
 /**
  * @file firebaseConfig.js
- * @description Firebase SDK 초기화 설정 스텁
- * 추후 실제 Firebase 프로젝트 연동 시 아래 설정값을 입력하고 주석을 해제합니다.
+ * @description Firebase SDK 초기화 설정
+ * 공식 CDN(v10 Modular)을 사용하여 별도 번들러 없이 브라우저에서 바로 동작합니다.
  */
 
-// import { initializeApp } from 'firebase/app';
-// import { getFirestore } from 'firebase/firestore';
-// import { getStorage } from 'firebase/storage';
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
+import { getFirestore } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
 
+// 사용자 제공 Firebase 프로젝트 설정값
 export const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "vlast-shop.firebaseapp.com",
-  projectId: "vlast-shop",
-  storageBucket: "vlast-shop.appspot.com",
-  messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-  appId: "YOUR_APP_ID"
+  apiKey: "AIzaSyAt-qmXZ7miQdNcgtk9bBMf11wQtG7ZLCE",
+  authDomain: "sso-wed-project.firebaseapp.com",
+  projectId: "sso-wed-project",
+  storageBucket: "sso-wed-project.firebasestorage.app",
+  messagingSenderId: "42504746302",
+  appId: "1:42504746302:web:e2ab5c06c7f233d2dea86f"
 };
 
-// export const app = initializeApp(firebaseConfig);
-// export const db = getFirestore(app);
-// export const storage = getStorage(app);
-
-export const db = null;
-export const storage = null;
-
+// Initialize Firebase App & Firestore
+export const app = initializeApp(firebaseConfig);
+export const db = getFirestore(app);
